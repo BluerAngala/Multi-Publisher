@@ -1,6 +1,8 @@
 import { Button, Image, Popover, PopoverContent, PopoverTrigger } from '@heroui/react';
-import { BookOpenText, BotIcon, LayoutDashboardIcon, SendIcon } from 'lucide-react';
+import { BookOpenText, BotIcon, SendIcon } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import React from 'react';
+import { DOC_URLS, URLS } from '~config/urls';
 
 const Header: React.FC = () => {
   return (
@@ -13,33 +15,25 @@ const Header: React.FC = () => {
             className="mr-2 w-8 h-8 rounded-full"
           />
           <a
-            href="https://multipost.app"
+            href={URLS.home}
             target="_blank"
             className="hover:text-blue-600">
             <h1 className="text-lg font-semibold">{chrome.i18n.getMessage('optionsTitle')}</h1>
           </a>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 items-center">
+          {/* 去网页发布 */}
           <Button
             size="sm"
             variant="flat"
             color="primary"
             as="a"
             target="_blank"
-            href="https://multipost.app/dashboard"
-            startContent={<LayoutDashboardIcon size={16} />}>
-            <span className="text-sm">{chrome.i18n.getMessage('optionViewHomePageDashboard')}</span>
-          </Button>
-          <Button
-            size="sm"
-            variant="flat"
-            color="primary"
-            as="a"
-            target="_blank"
-            href="https://multipost.app/dashboard/publish"
+            href={URLS.publish}
             startContent={<SendIcon size={16} />}>
             <span className="text-sm">{chrome.i18n.getMessage('optionViewHomePagePublish')}</span>
           </Button>
+          {/* 文档 */}
           <Popover>
             <PopoverTrigger>
               <Button
@@ -58,7 +52,7 @@ const Header: React.FC = () => {
                   color="primary"
                   as="a"
                   target="_blank"
-                  href="https://docs.multipost.app"
+                  href={DOC_URLS.userGuide}
                   startContent={<BookOpenText size={16} />}>
                   <span className="text-sm">User Guide</span>
                 </Button>
@@ -68,10 +62,67 @@ const Header: React.FC = () => {
                   color="primary"
                   as="a"
                   target="_blank"
-                  href="https://docs.multipost.app/docs/api-reference"
+                  href={DOC_URLS.apiReference}
                   startContent={<BotIcon size={16} />}>
                   <span className="text-sm">{chrome.i18n.getMessage('optionsViewAutomation')}</span>
                 </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+          {/* GitHub */}
+          <Button
+            as="a"
+            href="https://github.com/BluerAngala/Multi-Publisher"
+            target="_blank"
+            rel="noopener noreferrer"
+            size="sm"
+            isIconOnly
+            className="text-white bg-[#24292F] hover:bg-[#24292F]/90">
+            <Icon
+              icon="mdi:github"
+              className="size-5"
+            />
+          </Button>
+          {/* 邮箱 */}
+          <Button
+            as="a"
+            href="mailto:new-ai@foxmail.com"
+            size="sm"
+            isIconOnly
+            variant="flat">
+            <Icon
+              icon="material-symbols:mail"
+              className="size-5"
+            />
+          </Button>
+          {/* QQ */}
+          <Popover placement="bottom">
+            <PopoverTrigger>
+              <Button
+                size="sm"
+                isIconOnly
+                variant="flat">
+                <Icon
+                  icon="icon-park:tencent-qq"
+                  className="size-5"
+                />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className="gap-2 px-4 py-3">
+                <div className="text-sm font-medium">{chrome.i18n.getMessage('optionsQQGroupTitle')}</div>
+                <div className="flex gap-4 items-center">
+                  <span className="text-sm">2128484413</span>
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    onPress={() => navigator.clipboard.writeText('2128484413')}>
+                    <Icon
+                      icon="material-symbols:content-copy"
+                      className="size-4"
+                    />
+                  </Button>
+                </div>
               </div>
             </PopoverContent>
           </Popover>

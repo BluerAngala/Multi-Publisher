@@ -4,6 +4,7 @@ import { HeroUIProvider, Button, Image } from '@heroui/react';
 import { Storage } from '@plasmohq/storage';
 import { Shield, ShieldAlert, XCircle, CheckCircle2 } from 'lucide-react';
 import cssText from 'data-text:~style.css';
+import { URLS } from '~config/urls';
 
 export function getShadowContainer() {
   return document.querySelector('#test-shadow').shadowRoot.querySelector('#plasmo-shadow-container');
@@ -34,7 +35,7 @@ const LinkExtension = () => {
   const storage = new Storage({ area: 'local' });
 
   useEffect(() => {
-    document.title = chrome.i18n.getMessage('optionsTitle') + ' - MultiPost';
+    document.title = chrome.i18n.getMessage('optionsTitle') + ' - Multi-Publisher';
     try {
       // 获取 hash 部分（移除开头的 #）
       const encodedParams = window.location.hash.substring(1);
@@ -114,7 +115,7 @@ const LinkExtension = () => {
                 className="w-16 h-16 mb-3 rounded-lg"
               />
               <a
-                href="https://multipost.app"
+                href={URLS.home}
                 target="_blank"
                 className="inline-flex items-center hover:text-blue-600">
                 <h1 className="text-2xl font-semibold">{chrome.i18n.getMessage('optionsTitle')}</h1>

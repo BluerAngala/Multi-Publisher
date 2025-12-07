@@ -92,7 +92,7 @@
           "assets/icon.png"
         ],
         "matches": [
-          "https://www.plasmo.com/*"
+          "<all_urls>"
         ]
       }
     ]

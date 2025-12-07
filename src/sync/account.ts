@@ -15,6 +15,7 @@ import { getAlipayAccountInfo } from './account/alipay';
 import { getYidianAccountInfo } from './account/yidian';
 import { getPinduoduoAccountInfo } from './account/pinduoduo';
 import { getVivoVideoAccountInfo } from './account/vivovideo';
+import { getWeixinAccountInfo } from './account/weixin';
 import { Storage } from '@plasmohq/storage';
 import { ping } from '~background/services/api';
 
@@ -148,6 +149,13 @@ export const refreshAccountInfoMap: Record<
     faviconUrl: 'https://www.vivo.com.cn/favicon.ico',
     getAccountInfo: getVivoVideoAccountInfo,
   },
+  weixin: {
+    platformName: chrome.i18n.getMessage('platformWeixin'),
+    accountKey: 'weixin',
+    homeUrl: 'https://mp.weixin.qq.com/',
+    faviconUrl: 'https://mp.weixin.qq.com/favicon.ico',
+    getAccountInfo: getWeixinAccountInfo,
+  },
 };
 
 /**
@@ -156,24 +164,25 @@ export const refreshAccountInfoMap: Record<
  * @returns 返回账号信息
  */
 export async function refreshAccountInfo(accountKey: string): Promise<AccountInfo> {
-  const platformInfos = await getPlatformInfos();
-  const platformInfo = platformInfos.find((p) => p.accountKey === accountKey);
-  if (!platformInfo) {
-    throw new Error(`找不到账号信息: ${accountKey}`);
+  const accountConfig = refreshAccountInfoMap[accountKey];
+  if (!accountConfig) {
+    throw new Error(`找不到账号配置: ${accountKey}`);
   }
 
-  const accountInfo = await refreshAccountInfoMap[accountKey].getAccountInfo();
+  try {
+    const accountInfo = await accountConfig.getAccountInfo();
 
-  if (!accountInfo) {
-    console.error(`获取账号信息失败: ${accountKey}`);
+    if (!accountInfo) {
+      removeAccountInfo(accountKey);
+      return null;
+    }
+
+    await saveAccountInfo(accountKey, accountInfo);
+    return accountInfo;
+  } catch {
     removeAccountInfo(accountKey);
     return null;
   }
-
-  // 更新平台信息并保存到storage
-  await saveAccountInfo(accountKey, accountInfo);
-
-  return accountInfo;
 }
 
 /**
@@ -261,11 +270,16 @@ export async function refreshAllAccountInfo(): Promise<RefreshResult> {
           }
         }
       } catch (error) {
-        console.error(`刷新账号信息失败: ${accountKey}`, error);
         errors[accountKey] = (error as Error).message || chrome.i18n.getMessage('refreshAccountsError');
       }
     }),
   );
+
+  // 输出账号刷新统计
+  const successList = Object.keys(results);
+  const failList = Object.keys(errors);
+  console.log(`[account] 刷新完成 - 成功: ${successList.length} 个 (${successList.join(', ') || '无'})`);
+  console.log(`[account] 刷新完成 - 失败: ${failList.length} 个 (${failList.join(', ') || '无'})`);
 
   await ping(true);
 

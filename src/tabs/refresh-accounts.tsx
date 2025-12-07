@@ -4,6 +4,7 @@ import { HeroUIProvider, Button, Image, Switch } from '@heroui/react';
 import { RefreshCw, CheckCircle2, XCircle, Loader2, ExternalLink } from 'lucide-react';
 import cssText from 'data-text:~style.css';
 import { refreshAllAccountInfo, refreshAccountInfoMap } from '~sync/account';
+import { URLS } from '~config/urls';
 import type { AccountInfo } from '~sync/common';
 import { Storage } from '@plasmohq/storage';
 
@@ -101,7 +102,7 @@ const RefreshAccounts = () => {
   }, []);
 
   useEffect(() => {
-    document.title = chrome.i18n.getMessage('refreshAccountsTitle') + ' - MultiPost';
+    document.title = chrome.i18n.getMessage('refreshAccountsTitle') + ' - Multi-Publisher';
     refreshAccounts();
   }, [refreshAccounts]);
 
@@ -123,7 +124,7 @@ const RefreshAccounts = () => {
                 className="mb-3 w-16 h-16 rounded-lg"
               />
               <a
-                href="https://multipost.app"
+                href={URLS.home}
                 target="_blank"
                 className="inline-flex items-center hover:text-blue-600">
                 <h1 className="text-2xl font-semibold">{chrome.i18n.getMessage('refreshAccountsTitle')}</h1>

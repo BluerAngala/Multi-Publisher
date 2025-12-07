@@ -1,4 +1,5 @@
 import type { PlatformInfo } from './common';
+import { URLS } from '~config/urls';
 import { DynamicBaijiahao } from './dynamic/baijiahao';
 import { DynamicBilibili } from './dynamic/bilibili';
 import { DynamicBluesky } from './dynamic/bluesky';
@@ -278,10 +279,10 @@ export const DynamicInfoMap: Record<string, PlatformInfo> = {
   DYNAMIC_WEBHOOK: {
     type: 'DYNAMIC',
     name: 'DYNAMIC_WEBHOOK',
-    homeUrl: 'https://multipost.app/about/',
-    faviconUrl: 'https://multipost.app/favicon.ico',
+    homeUrl: URLS.about,
+    faviconUrl: URLS.favicon,
     platformName: chrome.i18n.getMessage('platformWebhook'),
-    injectUrl: 'https://multipost.app/about/',
+    injectUrl: URLS.about,
     injectFunction: DynamicWebhook,
     tags: ['International'],
     accountKey: 'webhook',

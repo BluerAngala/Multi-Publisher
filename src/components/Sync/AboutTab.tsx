@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardBody, Link, Button } from '@heroui/react';
+import { URLS } from '~config/urls';
 
 const AboutTab: React.FC = () => {
   return (
@@ -25,7 +26,7 @@ const AboutTab: React.FC = () => {
         <CardBody className="gap-4">
           <Button
             as={Link}
-            href="https://multipost.app/about"
+            href={URLS.about}
             target="_blank"
             rel="noopener noreferrer"
             variant="flat"

@@ -14,6 +14,7 @@ import {
   injectScriptsToTabs,
 } from '~sync/common';
 import { Storage } from '@plasmohq/storage';
+import { DOC_URLS } from '~config/urls';
 
 const storage = new Storage({
   area: 'local',
@@ -737,7 +738,7 @@ export default function Publish() {
           <p className="text-xs text-gray-500">
             {chrome.i18n.getMessage('contactUsIfProblem')}
             <a
-              href="https://docs.multipost.app/docs/user-guide/contact-us"
+              href={DOC_URLS.contactUs}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 underline hover:text-blue-600">

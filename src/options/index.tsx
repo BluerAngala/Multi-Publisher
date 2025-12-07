@@ -4,29 +4,12 @@
 import '~style.css';
 import React, { useState } from 'react';
 import { HeroUIProvider } from '@heroui/react';
-import {
-  Tabs,
-  Tab,
-  Spacer,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from '@heroui/react';
-import { Icon } from '@iconify/react';
-import { ExternalLink } from 'lucide-react';
+import { Tabs, Tab } from '@heroui/react';
 import cssText from 'data-text:~style.css';
 import Header from '~/components/Header';
 import DynamicTab from '~/components/Sync/DynamicTab';
 import VideoTab from '~/components/Sync/VideoTab';
-import AboutTab from '~/components/Sync/AboutTab';
 import { type SyncData, createTabsForPlatforms, injectScriptsToTabs } from '~sync/common';
-import SettingsTab from '~components/Sync/SettingsTab';
 import ArticleTab from '~components/Sync/ArticleTab';
 import { refreshAllAccountInfo } from '~sync/account';
 
@@ -62,7 +45,6 @@ export const getStyle = () => {
 const Options = () => {
   const [isReady, setIsReady] = useState(false);
   const [hashParams, setHashParams] = useState<Record<string, string>>({});
-  const [isWebAppModalOpen, setIsWebAppModalOpen] = useState(true);
 
   /**
    * Initialize the options page
@@ -179,21 +161,23 @@ const Options = () => {
         <Tabs
           aria-label="sync publish"
           defaultSelectedKey={hashParams.tab || 'dynamic'}
-          isVertical
-          variant="light"
-          size="lg"
+          variant="underlined"
+          size="md"
           color="primary"
-          className="h-full">
+          classNames={{
+            base: 'flex justify-center',
+            tabList: 'gap-4',
+            tab: 'px-4 py-2 text-gray-500',
+            cursor: 'bg-primary',
+          }}>
           <Tab
             key="dynamic"
-            title={chrome.i18n.getMessage('gDynamic')}
-            className="w-full">
+            title={chrome.i18n.getMessage('gDynamic')}>
             <DynamicTab funcPublish={funcPublish} />
           </Tab>
           <Tab
             key="article"
-            title={chrome.i18n.getMessage('gArticle')}
-            className="w-full">
+            title={chrome.i18n.getMessage('gArticle')}>
             <ArticleTab
               funcPublish={funcPublish}
               funcScraper={funcScraper}
@@ -201,152 +185,11 @@ const Options = () => {
           </Tab>
           <Tab
             key="video"
-            title={chrome.i18n.getMessage('gVideo')}
-            className="w-full">
+            title={chrome.i18n.getMessage('gVideo')}>
             <VideoTab funcPublish={funcPublish} />
-          </Tab>
-          <Tab
-            key="settings"
-            title={chrome.i18n.getMessage('gSettings')}
-            className="w-full">
-            <SettingsTab />
-          </Tab>
-          <Tab
-            key="aboutTab"
-            title={chrome.i18n.getMessage('gAbout')}
-            className="w-full">
-            <AboutTab />
           </Tab>
         </Tabs>
       </main>
-      <Spacer y={8} />
-      <footer className="text-sm text-center">
-        <p className="mb-4 text-gray-600">{chrome.i18n.getMessage('optionsContactPrefix')}</p>
-        <p className="flex gap-4 justify-center items-center">
-          <Button
-            as="a"
-            href="https://github.com/leaper-one/Multipost-Extension/issues"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="sm"
-            isIconOnly
-            className="text-white bg-[#24292F] hover:bg-[#24292F]/90">
-            <Icon
-              icon="mdi:github"
-              className="size-5"
-            />
-          </Button>
-
-          <Button
-            as="a"
-            href="mailto:support@leaper.one"
-            size="sm"
-            startContent={
-              <Icon
-                icon="material-symbols:mail"
-                className="size-5"
-              />
-            }>
-            support@leaper.one
-          </Button>
-
-          <Button
-            as="a"
-            href="https://mc1cz6k4he.feishu.cn/share/base/form/shrcnGyzsczESObZ72JhLanY8Xg"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="sm"
-            startContent={
-              <Icon
-                icon="material-symbols:feedback"
-                className="size-5"
-              />
-            }>
-            {chrome.i18n.getMessage('optionsFeedback') || 'Feedback'}
-          </Button>
-
-          <Popover placement="top">
-            <PopoverTrigger>
-              <Button
-                size="sm"
-                isIconOnly>
-                <Icon
-                  icon="icon-park:tencent-qq"
-                  className="size-5"
-                />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className="gap-2 px-4 py-3">
-                <div className="text-sm font-medium">{chrome.i18n.getMessage('optionsQQGroupTitle')}</div>
-                <div className="flex gap-4 items-center">
-                  <Button
-                    size="sm"
-                    variant="light"
-                    as="a"
-                    href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=c5BjhD8JxNAuwjKh6qvCoROU301PppYU&authKey=NfKianfDwngrwJyVQbefIQET9vUQs46xb0PfOYUm6KzdeCjPd5YbvlRoO8trJUUZ&noverify=0&group_code=921137242"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex gap-2 items-center">
-                    921137242
-                  </Button>
-                  <Button
-                    isIconOnly
-                    size="sm"
-                    onPress={() => navigator.clipboard.writeText('921137242')}>
-                    <Icon
-                      icon="material-symbols:content-copy"
-                      className="size-4"
-                    />
-                  </Button>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </p>
-      </footer>
-
-      {/* 网页版跳转模态框 */}
-      <Modal
-        isOpen={isWebAppModalOpen}
-        onOpenChange={setIsWebAppModalOpen}
-        size="md"
-        placement="center"
-        backdrop="blur">
-        <ModalContent>
-          <ModalHeader>{chrome.i18n.getMessage('webAppModalTitle')}</ModalHeader>
-          <ModalBody>
-            <div className="space-y-4">
-              <p className="text-sm text-gray-600">{chrome.i18n.getMessage('webAppModalDescription')}</p>
-              <div className="flex justify-center items-center">
-                <img
-                  src={chrome.runtime.getURL('assets/icon.png')}
-                  alt="MultiPost"
-                  className="w-24 h-24 rounded-xl shadow-md"
-                />
-              </div>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              variant="light"
-              onPress={() => setIsWebAppModalOpen(false)}>
-              {chrome.i18n.getMessage('webAppModalLater')}
-            </Button>
-            <Button
-              variant="solid"
-              color="primary"
-              as="a"
-              href="https://multipost.app/dashboard/publish"
-              target="_blank"
-              rel="noopener noreferrer"
-              startContent={<ExternalLink className="size-4" />}
-              onPress={() => setIsWebAppModalOpen(false)}>
-              {chrome.i18n.getMessage('webAppModalGo')}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </HeroUIProvider>
   );
 };

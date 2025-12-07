@@ -1,9 +1,10 @@
 import { Storage } from '@plasmohq/storage';
 import { getPlatformInfos } from '~sync/common';
+import { BASE_URL } from '~config/urls';
 
 const storage = new Storage({ area: 'local' });
 
-const host = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://multipost.app';
+const host = BASE_URL;
 
 export const ping = async (withPlatforms: boolean = false) => {
   const apiKey = await storage.get('apiKey');
