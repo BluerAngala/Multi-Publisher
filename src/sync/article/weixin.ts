@@ -309,18 +309,30 @@ export async function ArticleWeixin(data: SyncData) {
   ) {
     const formData = new FormData();
 
-    // 获取微信配置选项，使用默认值
+    // 获取微信配置选项：优先从 extraConfig 读取，其次从 articleData.weixinOptions 读取
+    const weixinPlatform = data.platforms.find((p) => p.name === 'ARTICLE_WEIXIN');
+    const extraConfig = (weixinPlatform?.extraConfig || {}) as Record<string, unknown>;
     const wxOpts = articleData.weixinOptions || {};
-    const isOriginal = wxOpts.isOriginal !== false; // 默认 true
-    const claimSourceType = wxOpts.claimSourceType || 4; // 默认 4（个人观点）
-    const claimSourceText = wxOpts.claimSourceText || '个人观点，仅供参考';
-    const enableReward = wxOpts.enableReward !== false; // 默认 true
+
+    // 合并配置：extraConfig 优先级高于 weixinOptions
+    const isOriginal =
+      extraConfig.isOriginal !== undefined ? Boolean(extraConfig.isOriginal) : wxOpts.isOriginal !== false;
+    const claimSourceType = (extraConfig.claimSourceType as 1 | 4) || wxOpts.claimSourceType || 4;
+    const claimSourceText = (extraConfig.claimSourceText as string) || wxOpts.claimSourceText || '个人观点，仅供参考';
+    const enableReward =
+      extraConfig.enableReward !== undefined ? Boolean(extraConfig.enableReward) : wxOpts.enableReward !== false;
     const rewardReplyId = wxOpts.rewardReplyId ?? 1; // 默认 1
-    const enableAd = wxOpts.enableAd !== false; // 默认 true
-    const sourceUrl = wxOpts.sourceUrl || '';
-    const allowReprint = wxOpts.allowReprint || false; // 默认 false
-    // 付费设置
-    const paySettings = wxOpts.paySettings;
+    const enableAd = extraConfig.enableAd !== undefined ? Boolean(extraConfig.enableAd) : wxOpts.enableAd !== false;
+    const sourceUrl = (extraConfig.sourceUrl as string) || wxOpts.sourceUrl || '';
+    const allowReprint =
+      extraConfig.allowReprint !== undefined ? Boolean(extraConfig.allowReprint) : wxOpts.allowReprint || false;
+    // 合集设置：合并 extraConfig 和 weixinOptions 中的合集
+    const albumTitles = [...((extraConfig.albumTitles as string[]) || []), ...(wxOpts.albumTitles || [])];
+    // 付费设置：优先从 extraConfig 读取
+    const extraPaySettings = extraConfig.paySettings as
+      | { enabled?: boolean; fee?: number; previewPercent?: number; description?: string }
+      | undefined;
+    const paySettings = extraPaySettings || wxOpts.paySettings;
     const enablePay = paySettings?.enabled || false;
     const payFee = paySettings?.fee || 0; // 单位：分
     const payPreviewPercent = paySettings?.previewPercent || 0;
@@ -394,7 +406,6 @@ export async function ArticleWeixin(data: SyncData) {
 
     // 合集配置（动态获取）
     const albumIds = wxOpts.albumIds || [];
-    const albumTitles = wxOpts.albumTitles || [];
     let selectedAlbums: WeixinAlbumInfo[] = [];
 
     if (albumIds.length > 0 || albumTitles.length > 0) {
@@ -553,7 +564,7 @@ export async function ArticleWeixin(data: SyncData) {
     formData.append('convert_from_image_share_page0', '');
     formData.append('multi_picture_cover0', '0');
     formData.append('title_gen_type0', '0');
-    formData.append('compose_info0', '{"list":""}')
+    formData.append('compose_info0', '{"list":""}');
 
     // req 参数（包含创作来源声明）
     formData.append(

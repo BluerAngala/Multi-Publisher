@@ -4,6 +4,7 @@ import DynamicWebhook from './Modals/DynamicWebhook';
 import DynamicOkjike from './Modals/DynamicOkjike';
 import DynamicZsxq from './Modals/DynamicZSXQ';
 import ArticleWordpress from './Modals/ArticleWordpress';
+import ArticleWeixin from './Modals/ArticleWeixin';
 
 interface ExtraInfoConfigProps {
   platformInfo: PlatformInfo;
@@ -19,6 +20,8 @@ export default function ExtraInfoConfig({ platformInfo }: ExtraInfoConfigProps) 
     return <DynamicZsxq platformKey={platformInfo.name} />;
   } else if (platformInfo.name === 'ARTICLE_WORDPRESS') {
     return <ArticleWordpress platformKey={platformInfo.name} />;
+  } else if (platformInfo.name === 'ARTICLE_WEIXIN') {
+    return <ArticleWeixin platformKey={platformInfo.name} />;
   } else {
     return null;
   }

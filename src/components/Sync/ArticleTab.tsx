@@ -26,6 +26,7 @@ import { Icon } from '@iconify/react';
 import { useStorage } from '@plasmohq/storage/hook';
 import { ACCOUNT_INFO_STORAGE_KEY } from '~sync/account';
 import { EXTRA_CONFIG_STORAGE_KEY } from '~sync/extraconfig';
+import { MD_EDITOR_URL } from '~config/urls';
 
 interface ArticleTabProps {
   funcPublish: (data: SyncData) => void;
@@ -36,6 +37,7 @@ interface ArticleTabProps {
 const ArticleTab: React.FC<ArticleTabProps> = ({ funcPublish, funcScraper }) => {
   const [title, setTitle] = useState<string>('');
   const [digest, setDigest] = useState<string>('');
+  const [sourceUrl, setSourceUrl] = useState<string>('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [url, setUrl] = useState<string>('');
   const [importedContent, setImportedContent] = useState<{
@@ -143,11 +145,18 @@ const ArticleTab: React.FC<ArticleTabProps> = ({ funcPublish, funcScraper }) => 
       : '';
 
     const data: SyncData = {
-      platforms: selectedPlatforms.map((platform) => ({
-        name: platform,
-        injectUrl: platforms.find((p) => p.name === platform)?.injectUrl || '',
-        extraConfig: platforms.find((p) => p.name === platform)?.extraConfig || {},
-      })),
+      platforms: selectedPlatforms.map((platform) => {
+        const platformInfo = platforms.find((p) => p.name === platform);
+        const baseExtraConfig = (platformInfo?.extraConfig || {}) as Record<string, unknown>;
+        // 为微信平台添加原文链接
+        const extraConfig =
+          platform === 'ARTICLE_WEIXIN' && sourceUrl ? { ...baseExtraConfig, sourceUrl } : baseExtraConfig;
+        return {
+          name: platform,
+          injectUrl: platformInfo?.injectUrl || '',
+          extraConfig,
+        };
+      }),
       data: {
         title,
         digest: digest || '',
@@ -329,7 +338,7 @@ const ArticleTab: React.FC<ArticleTabProps> = ({ funcPublish, funcScraper }) => 
         endContent={
           <Button
             as={Link}
-            href="https://md.multipost.app"
+            href={MD_EDITOR_URL}
             target="_blank">
             {chrome.i18n.getMessage('articleEditorAlertButton')}
           </Button>
@@ -423,7 +432,7 @@ const ArticleTab: React.FC<ArticleTabProps> = ({ funcPublish, funcScraper }) => 
               />
             </CardHeader>
 
-            <CardBody>
+            <CardBody className="flex flex-col gap-4">
               <Textarea
                 placeholder={chrome.i18n.getMessage('optionsEnterArticleDigest')}
                 value={digest}
@@ -432,6 +441,16 @@ const ArticleTab: React.FC<ArticleTabProps> = ({ funcPublish, funcScraper }) => 
                 minRows={5}
                 autoFocus
               />
+              {/* 原文链接（微信公众号专用） */}
+              {selectedPlatforms.includes('ARTICLE_WEIXIN') && (
+                <Input
+                  label={chrome.i18n.getMessage('extraConfigWeixinSourceUrl')}
+                  placeholder="https://example.com/article"
+                  value={sourceUrl}
+                  onChange={(e) => setSourceUrl(e.target.value)}
+                  size="sm"
+                />
+              )}
             </CardBody>
           </Card>
 

@@ -1,15 +1,15 @@
 {
   "extensionName": {
-    "message": "MultiPost",
-    "description": "Multipost Extension"
+    "message": "Multi-Publisher",
+    "description": "Multi-Publisher Extension"
   },
   "extensionDisplayName": {
-    "message": "MultiPost",
-    "description": "Multipost Extension"
+    "message": "Multi-Publisher",
+    "description": "Multi-Publisher Extension"
   },
   "extensionDescription": {
-    "message": "MultiPost 是一个帮助你在多个平台同步发布内容的工具。",
-    "description": "Multipost 是一个帮助你在多个平台同步发布内容的工具。"
+    "message": "Multi-Publisher 是一个帮助你在多个平台同步发布内容的工具。",
+    "description": "Multi-Publisher 是一个帮助你在多个平台同步发布内容的工具。"
   },
   "gDynamic": {
     "message": "动态",
@@ -56,7 +56,7 @@
     "description": "默认昵称文本"
   },
   "optionsTitle": {
-    "message": "Multipost",
+    "message": "Multi-Publisher",
     "description": "选项页面标题"
   },
   "optionsViewDocs": {
@@ -180,8 +180,8 @@
     "description": "同步按钮失败状态文本"
   },
   "optionsLogin2SOMEren": {
-    "message": "请登录 Multipost",
-    "description": "登录 Multipost 提示"
+    "message": "请登录 Multi-Publisher",
+    "description": "登录 Multi-Publisher 提示"
   },
   "optionsNotBoundBilibili": {
     "message": "未绑定 B 站账号",
@@ -568,7 +568,7 @@
     "description": "清空所有已选择平台的按钮文本"
   },
   "aboutDescription": {
-    "message": "MultiPost Extension 帮助您同时将内容发布到多个平台，提高内容分发效率。"
+    "message": "Multi-Publisher Extension 帮助您同时将内容发布到多个平台，提高内容分发效率。"
   },
   "gAbout": {
     "message": "关于"
@@ -750,7 +750,7 @@
     "message": "处理请求时发生错误"
   },
   "popupLogoAlt": {
-    "message": "MultiPost 图标",
+    "message": "Multi-Publisher 图标",
     "description": "Logo 图片的替代文本"
   },
   "popupLoadingMessage": {
@@ -899,7 +899,7 @@
     "message": "保存"
   },
   "linkExtensionTitle": {
-    "message": "连接扩展到 MultiPost.app",
+    "message": "连接扩展",
     "description": "连接扩展页面标题"
   },
   "linkExtensionReject": {
@@ -911,7 +911,7 @@
     "description": "允许连接按钮文本"
   },
   "linkExtensionSuccess": {
-    "message": "已连接到 MultiPost.app",
+    "message": "连接成功",
     "description": "连接成功提示"
   },
   "linkExtensionRejected": {
@@ -1047,5 +1047,105 @@
   "publishAutoCloseCountdown": {
     "message": "$1 秒后自动关闭",
     "description": "发布页面自动关闭倒计时文本"
+  },
+  "extraConfigWeixinConfigure": {
+    "message": "配置",
+    "description": "微信公众号配置按钮"
+  },
+  "extraConfigWeixinTitle": {
+    "message": "微信公众号发布设置",
+    "description": "微信公众号配置弹窗标题"
+  },
+  "extraConfigWeixinBasicSettings": {
+    "message": "基础设置",
+    "description": "基础设置分组标题"
+  },
+  "extraConfigWeixinIsOriginal": {
+    "message": "声明原创",
+    "description": "是否声明原创"
+  },
+  "extraConfigWeixinClaimSourceType": {
+    "message": "创作来源类型",
+    "description": "创作来源类型选择"
+  },
+  "extraConfigWeixinClaimOriginal": {
+    "message": "原创",
+    "description": "创作来源类型-原创"
+  },
+  "extraConfigWeixinClaimPersonal": {
+    "message": "个人观点",
+    "description": "创作来源类型-个人观点"
+  },
+  "extraConfigWeixinClaimSourceText": {
+    "message": "创作来源说明",
+    "description": "创作来源说明输入框"
+  },
+  "extraConfigWeixinPublishSettings": {
+    "message": "发布设置",
+    "description": "发布设置分组标题"
+  },
+  "extraConfigWeixinEnableReward": {
+    "message": "开启赞赏",
+    "description": "是否开启赞赏"
+  },
+  "extraConfigWeixinEnableAd": {
+    "message": "开启广告",
+    "description": "是否开启广告"
+  },
+  "extraConfigWeixinAllowReprint": {
+    "message": "允许转载",
+    "description": "是否允许转载"
+  },
+  "extraConfigWeixinSourceUrl": {
+    "message": "原文链接",
+    "description": "原文链接输入框"
+  },
+  "extraConfigWeixinAlbumSettings": {
+    "message": "合集设置",
+    "description": "合集设置分组标题"
+  },
+  "extraConfigWeixinAlbumPlaceholder": {
+    "message": "输入合集名称关键词",
+    "description": "合集名称输入框占位符"
+  },
+  "extraConfigWeixinAlbumTip": {
+    "message": "输入合集名称的关键词，发布时会自动匹配包含该关键词的合集",
+    "description": "合集设置提示"
+  },
+  "extraConfigWeixinAdd": {
+    "message": "添加",
+    "description": "添加按钮"
+  },
+  "extraConfigWeixinPaySettings": {
+    "message": "付费设置",
+    "description": "付费设置分组标题"
+  },
+  "extraConfigWeixinEnablePay": {
+    "message": "开启付费阅读",
+    "description": "是否开启付费"
+  },
+  "extraConfigWeixinPayFee": {
+    "message": "付费金额",
+    "description": "付费金额输入框"
+  },
+  "extraConfigWeixinPayPreview": {
+    "message": "免费预览比例",
+    "description": "免费预览比例输入框"
+  },
+  "extraConfigWeixinPayDesc": {
+    "message": "付费说明",
+    "description": "付费说明输入框"
+  },
+  "extraConfigWeixinPayDescPlaceholder": {
+    "message": "付费后可阅读完整内容",
+    "description": "付费说明占位符"
+  },
+  "extraConfigWeixinCancel": {
+    "message": "取消",
+    "description": "取消按钮"
+  },
+  "extraConfigWeixinSave": {
+    "message": "保存",
+    "description": "保存按钮"
   }
 }

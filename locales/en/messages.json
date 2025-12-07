@@ -1,15 +1,15 @@
 {
   "extensionName": {
-    "message": "MultiPost",
-    "description": "Multipost Extension"
+    "message": "Multi-Publisher",
+    "description": "Multi-Publisher Extension"
   },
   "extensionDisplayName": {
-    "message": "MultiPost",
-    "description": "Multipost Extension"
+    "message": "Multi-Publisher",
+    "description": "Multi-Publisher Extension"
   },
   "extensionDescription": {
-    "message": "MultiPost is a tool to help you sync and publish content across multiple platforms.",
-    "description": "MultiPost is a tool to help you sync and publish content across multiple platforms."
+    "message": "Multi-Publisher is a tool to help you sync and publish content across multiple platforms.",
+    "description": "Multi-Publisher is a tool to help you sync and publish content across multiple platforms."
   },
   "gDynamic": {
     "message": "Dynamic",
@@ -56,7 +56,7 @@
     "description": "Default nickname text"
   },
   "optionsTitle": {
-    "message": "Multipost",
+    "message": "Multi-Publisher",
     "description": "Options page title"
   },
   "optionsViewDocs": {
@@ -180,8 +180,8 @@
     "description": "Sync button failed state text"
   },
   "optionsLogin2SOMEren": {
-    "message": "Please login to Multipost",
-    "description": "Login to Multipost prompt"
+    "message": "Please login to Multi-Publisher",
+    "description": "Login to Multi-Publisher prompt"
   },
   "optionsNotBoundBilibili": {
     "message": "Not Bound to Bilibili",
@@ -561,7 +561,7 @@
     "description": "Button text to clear all selected platforms"
   },
   "aboutDescription": {
-    "message": "MultiPost Extension helps you publish content to multiple platforms simultaneously, improving your content distribution efficiency."
+    "message": "Multi-Publisher Extension helps you publish content to multiple platforms simultaneously, improving your content distribution efficiency."
   },
   "gAbout": {
     "message": "About"
@@ -772,7 +772,7 @@
     "message": "Error processing request"
   },
   "popupLogoAlt": {
-    "message": "MultiPost Icon",
+    "message": "Multi-Publisher Icon",
     "description": "Alt text for the logo image"
   },
   "popupLoadingMessage": {
@@ -925,7 +925,7 @@
     "message": "Save"
   },
   "linkExtensionTitle": {
-    "message": "Connect Extension to MultiPost.app",
+    "message": "Connect Extension",
     "description": "Link extension page title"
   },
   "linkExtensionReject": {
@@ -937,7 +937,7 @@
     "description": "Allow connection button text"
   },
   "linkExtensionSuccess": {
-    "message": "Connected to MultiPost.app",
+    "message": "Connected successfully",
     "description": "Connection success message"
   },
   "linkExtensionRejected": {
@@ -1073,5 +1073,105 @@
   "publishAutoCloseCountdown": {
     "message": "Auto close in $1 seconds",
     "description": "Auto close countdown text for publish page"
+  },
+  "extraConfigWeixinConfigure": {
+    "message": "Configure",
+    "description": "WeChat config button"
+  },
+  "extraConfigWeixinTitle": {
+    "message": "WeChat Article Settings",
+    "description": "WeChat config modal title"
+  },
+  "extraConfigWeixinBasicSettings": {
+    "message": "Basic Settings",
+    "description": "Basic settings group title"
+  },
+  "extraConfigWeixinIsOriginal": {
+    "message": "Declare Original",
+    "description": "Whether to declare original"
+  },
+  "extraConfigWeixinClaimSourceType": {
+    "message": "Creation Source Type",
+    "description": "Creation source type select"
+  },
+  "extraConfigWeixinClaimOriginal": {
+    "message": "Original",
+    "description": "Creation source type - original"
+  },
+  "extraConfigWeixinClaimPersonal": {
+    "message": "Personal Opinion",
+    "description": "Creation source type - personal opinion"
+  },
+  "extraConfigWeixinClaimSourceText": {
+    "message": "Creation Source Description",
+    "description": "Creation source description input"
+  },
+  "extraConfigWeixinPublishSettings": {
+    "message": "Publish Settings",
+    "description": "Publish settings group title"
+  },
+  "extraConfigWeixinEnableReward": {
+    "message": "Enable Reward",
+    "description": "Whether to enable reward"
+  },
+  "extraConfigWeixinEnableAd": {
+    "message": "Enable Ads",
+    "description": "Whether to enable ads"
+  },
+  "extraConfigWeixinAllowReprint": {
+    "message": "Allow Reprint",
+    "description": "Whether to allow reprint"
+  },
+  "extraConfigWeixinSourceUrl": {
+    "message": "Source URL",
+    "description": "Source URL input"
+  },
+  "extraConfigWeixinAlbumSettings": {
+    "message": "Album Settings",
+    "description": "Album settings group title"
+  },
+  "extraConfigWeixinAlbumPlaceholder": {
+    "message": "Enter album name keyword",
+    "description": "Album name input placeholder"
+  },
+  "extraConfigWeixinAlbumTip": {
+    "message": "Enter album name keywords, will auto-match albums containing the keyword when publishing",
+    "description": "Album settings tip"
+  },
+  "extraConfigWeixinAdd": {
+    "message": "Add",
+    "description": "Add button"
+  },
+  "extraConfigWeixinPaySettings": {
+    "message": "Pay Settings",
+    "description": "Pay settings group title"
+  },
+  "extraConfigWeixinEnablePay": {
+    "message": "Enable Paid Reading",
+    "description": "Whether to enable paid reading"
+  },
+  "extraConfigWeixinPayFee": {
+    "message": "Price",
+    "description": "Price input"
+  },
+  "extraConfigWeixinPayPreview": {
+    "message": "Free Preview Percentage",
+    "description": "Free preview percentage input"
+  },
+  "extraConfigWeixinPayDesc": {
+    "message": "Pay Description",
+    "description": "Pay description input"
+  },
+  "extraConfigWeixinPayDescPlaceholder": {
+    "message": "Full content available after payment",
+    "description": "Pay description placeholder"
+  },
+  "extraConfigWeixinCancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+  "extraConfigWeixinSave": {
+    "message": "Save",
+    "description": "Save button"
   }
 }
