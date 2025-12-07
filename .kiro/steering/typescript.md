@@ -1,0 +1,74 @@
+---
+inclusion: fileMatch
+fileMatchPattern: ['*.tsx']
+---
+# TypeScript 开发指南
+
+- 不要使用 `npm run build` 或 `pnpm build` 进行测试
+
+## 代码风格
+- 所有代码使用 TypeScript；优先使用 interface 而非 type
+- 避免使用枚举；使用 map 替代
+- 使用带有 TypeScript 接口的函数式组件
+- 编写简洁的 TypeScript 代码，包含准确的类型定义
+- 使用函数式和声明式编程模式；避免使用类
+
+## 命名规范
+- 组件和接口使用 PascalCase（大驼峰）
+- 工具函数、变量和方法使用 camelCase（小驼峰）
+- 常量使用 SNAKE_CASE（大写下划线）
+```typescript
+// 组件和接口命名
+interface UserData {
+  email: string;
+  name: string;
+}
+
+function UserProfile() {}
+function AuthButton() {}
+
+// 工具函数命名
+function formatDateTime() {}
+function parseUserData() {}
+
+// 常量命名
+const API_BASE_URL = "https://api.example.com";
+const MAX_RETRY_COUNT = 3;
+```
+
+## 错误处理和类型安全
+- 使用提前返回和守卫子句
+- 实现适当的类型检查
+- 使用 Zod 进行表单验证和运行时类型检查
+```typescript
+// ✅ 正确示例
+function processUserData(data?: UserData) {
+  if (!data) return null;
+  if (!data.email) return { error: "Email required" };
+  
+  return processData(data);
+}
+
+// ❌ 错误示例
+function processUserData(data?: UserData) {
+  if (data) {
+    if (data.email) {
+      return processData(data);
+    }
+  }
+}
+```
+
+## 变量命名
+- 使用带有助动词的描述性变量名（如 isLoading、hasError）
+```typescript
+// ✅ 正确示例
+const isLoading = true;
+const hasError = false;
+const fetchUserData = async () => {};
+
+// ❌ 错误示例
+const loading = true;
+const error = false;
+const userData = async () => {};
+```

@@ -1,0 +1,1051 @@
+{
+  "extensionName": {
+    "message": "MultiPost",
+    "description": "Multipost Extension"
+  },
+  "extensionDisplayName": {
+    "message": "MultiPost",
+    "description": "Multipost Extension"
+  },
+  "extensionDescription": {
+    "message": "MultiPost 是一个帮助你在多个平台同步发布内容的工具。",
+    "description": "Multipost 是一个帮助你在多个平台同步发布内容的工具。"
+  },
+  "gDynamic": {
+    "message": "动态",
+    "description": "dynamic"
+  },
+  "gVideo": {
+    "message": "视频",
+    "description": "video"
+  },
+  "gArticle": {
+    "message": "文章",
+    "description": "article"
+  },
+  "gTitle": {
+    "message": "标题",
+    "description": "title"
+  },
+  "gContent": {
+    "message": "正文",
+    "description": "content"
+  },
+  "gSend": {
+    "message": "发送",
+    "description": "send"
+  },
+  "popupSettingsTooltip": {
+    "message": "设置",
+    "description": "设置按钮的提示文本"
+  },
+  "popupSyncPublicTooltip": {
+    "message": "同步发布",
+    "description": "同步发布按钮的提示文本"
+  },
+  "popupBubbleboxTooltip": {
+    "message": "泡泡树洞",
+    "description": "泡泡树洞按钮的提示文本"
+  },
+  "popupGiftTooltip": {
+    "message": "礼兮",
+    "description": "礼兮按钮的提示文本"
+  },
+  "popupDefaultNickname": {
+    "message": "未设置昵称",
+    "description": "默认昵称文本"
+  },
+  "optionsTitle": {
+    "message": "Multipost",
+    "description": "选项页面标题"
+  },
+  "optionsViewDocs": {
+    "message": "文档",
+    "description": "查看文档按钮文本"
+  },
+  "optionsAccountManagement": {
+    "message": "账号管理",
+    "description": "账号管理选项卡标题"
+  },
+  "optionsDataSync": {
+    "message": "数据同步",
+    "description": "数据同步选项卡标题"
+  },
+  "optionsRunningLogs": {
+    "message": "运行日志",
+    "description": "运行日志选项卡标题"
+  },
+  "optionsDynamicTab": {
+    "message": "动态",
+    "description": "动态选项卡标题"
+  },
+  "optionsEnterDynamicTitle": {
+    "message": "标题",
+    "description": "动态标题输入框占位符"
+  },
+  "optionsEnterDynamicContent": {
+    "message": "请输入内容",
+    "description": "动态内容输入框占位符"
+  },
+  "optionsSyncDynamic": {
+    "message": "同步动态",
+    "description": "同步动态按钮文本"
+  },
+  "optionsPostTab": {
+    "message": "文章",
+    "description": "文章选项卡标题"
+  },
+  "optionsVideoTab": {
+    "message": "视频",
+    "description": "视频选项卡标题"
+  },
+  "optionsClearLogs": {
+    "message": "清除日志",
+    "description": "清除日志按钮文本"
+  },
+  "optionsFilterLevel": {
+    "message": "筛选级别",
+    "description": "日志级别筛选器占位符"
+  },
+  "optionsAllLevels": {
+    "message": "全部级别",
+    "description": "全部日志级别选项"
+  },
+  "optionsInfo": {
+    "message": "信息",
+    "description": "信息级别日志"
+  },
+  "optionsWarning": {
+    "message": "警告",
+    "description": "警告级别日志"
+  },
+  "optionsError": {
+    "message": "错误",
+    "description": "错误级别日志"
+  },
+  "optionsFilterSource": {
+    "message": "筛选来源",
+    "description": "日志来源筛选器占位符"
+  },
+  "optionsAllSources": {
+    "message": "全部来源",
+    "description": "全部日志来源选项"
+  },
+  "optionsNoLogs": {
+    "message": "暂无日志",
+    "description": "无日志时显示的文本"
+  },
+  "optionsSyncSettingsTitle": {
+    "message": "同步服务设置与管理",
+    "description": "同步设置页面标题"
+  },
+  "optionsSyncSettingsDescription": {
+    "message": "在这里你可以管理数据的同步内容",
+    "description": "同步设置页面描述"
+  },
+  "optionsGiftSyncTooltip": {
+    "message": "会同步你的礼物数据，包括舰长上舰记录",
+    "description": "礼物同步提示"
+  },
+  "optionsGiftSync": {
+    "message": "礼物数据同步",
+    "description": "礼物同步选项"
+  },
+  "optionsSyncedAt": {
+    "message": "同步于",
+    "description": "上次同步时间标签"
+  },
+  "optionsNextSyncTime": {
+    "message": "下次同步时间",
+    "description": "下次同步时间提示"
+  },
+  "optionsUserManagement": {
+    "message": "账号管理",
+    "description": "用户管理页面标题"
+  },
+  "optionsSyncIdle": {
+    "message": "同步",
+    "description": "同步按钮空闲状态文本"
+  },
+  "optionsSyncSyncing": {
+    "message": "同步中...",
+    "description": "同步按钮同步中状态文本"
+  },
+  "optionsSyncSuccess": {
+    "message": "成功",
+    "description": "同步按钮成功状态文本"
+  },
+  "optionsSyncError": {
+    "message": "失败",
+    "description": "同步按钮失败状态文本"
+  },
+  "optionsLogin2SOMEren": {
+    "message": "请登录 Multipost",
+    "description": "登录 Multipost 提示"
+  },
+  "optionsNotBoundBilibili": {
+    "message": "未绑定 B 站账号",
+    "description": "未绑定 B 站账号提示"
+  },
+  "optionsBoundBilibili": {
+    "message": "已绑定：",
+    "description": "已绑定 B 站账号提示"
+  },
+  "optionsNotLoggedIn": {
+    "message": "未登录",
+    "description": "未登录状态文本"
+  },
+  "optionsUID": {
+    "message": "UID",
+    "description": "用户 ID 标签"
+  },
+  "optionsNotBound": {
+    "message": "未绑定",
+    "description": "未绑定状态文本"
+  },
+  "optionsWaitingForNextSync": {
+    "message": "等待下次同步",
+    "description": "等待下次同步的提示文本"
+  },
+  "optionsSyncPaused": {
+    "message": "同步已暂停",
+    "description": "同步暂停的提示文本"
+  },
+  "optionsGuardListSyncTooltip": {
+    "message": "会同步你的当前舰长列表",
+    "description": "舰长列表同步的提示文本"
+  },
+  "optionsGuardListSync": {
+    "message": "在舰舰长同步",
+    "description": "舰长列表同步选项"
+  },
+  "optionsDanmuTokenSyncTooltip": {
+    "message": "会同步你的弹幕身份信息",
+    "description": "弹幕身份同步的提示文本"
+  },
+  "optionsDanmuTokenSync": {
+    "message": "弹幕身份同步",
+    "description": "弹幕身份同步选项"
+  },
+  "optionsSessionSyncTooltip": {
+    "message": "会同步你的直播场次数据",
+    "description": "直播场次同步的提示文本"
+  },
+  "optionsSessionSync": {
+    "message": "直播场次同步",
+    "description": "直播场次同步选项"
+  },
+  "optionsAutoPublish": {
+    "message": "自动发布",
+    "description": "自动发布开关文本"
+  },
+  "optionsEnterVideoTitle": {
+    "message": "输入视频标题",
+    "description": "视频标题输入框占位符"
+  },
+  "optionsEnterVideoDescription": {
+    "message": "输入视频描述",
+    "description": "视频描述输入框占位符"
+  },
+  "optionsSyncVideo": {
+    "message": "同步视频",
+    "description": "同步视频按钮文本"
+  },
+  "optionsDashboard": {
+    "message": "控制台"
+  },
+  "dashboardSyncPublic": {
+    "message": "同步发布"
+  },
+  "syncPublicPageTitle": {
+    "message": "同步发布"
+  },
+  "optionsEnterUrl": {
+    "message": "输入URL（🔗 在任意一个平台发布后再导入内容）",
+    "description": "URL输入框占位符"
+  },
+  "optionsImport": {
+    "message": "导入",
+    "description": "导入按钮文本"
+  },
+  "optionsEnterArticleTitle": {
+    "message": "输入文章标题",
+    "description": "文章标题输入框占位符"
+  },
+  "optionsEnterArticleDigest": {
+    "message": "输入文章摘要",
+    "description": "文章摘要输入框占位符"
+  },
+  "optionsEnterArticleContent": {
+    "message": "输入文章内容",
+    "description": "文章内容输入框占位符"
+  },
+  "optionsSyncArticle": {
+    "message": "同步文章",
+    "description": "同步文章按钮文本"
+  },
+  "optionsImportedContent": {
+    "message": "内容"
+  },
+  "options2SOMErenHomepage": {
+    "message": "主页",
+    "description": "主页按钮文本"
+  },
+  "sidepanelTabsManagerTitle": {
+    "message": "同步管理",
+    "description": "侧边栏标签管理器的标题"
+  },
+  "sidepanelUntitledGroup": {
+    "message": "未命名分组 $1",
+    "description": "标签管理器中未命名分组的标题"
+  },
+  "sidepanelReloadTab": {
+    "message": "重新加载标签页",
+    "description": "重新加载标签按钮的 aria 标签"
+  },
+  "sidepanelCloseTab": {
+    "message": "关闭标签页",
+    "description": "关闭标签按钮的 aria 标签"
+  },
+  "optionsAtLeastOneImage": {
+    "message": "请选择至少一张图片"
+  },
+  "sidepanelTabsManager": {
+    "message": "标签管理",
+    "description": "侧边栏标签管理器选项卡的标题"
+  },
+  "sidepanelContentManager": {
+    "message": "笔记收藏",
+    "description": "侧边栏内容管理器选项卡的标题"
+  },
+  "sidepanelTabsAriaLabel": {
+    "message": "侧边栏功能",
+    "description": "侧边栏选项卡的无障碍标签"
+  },
+  "contentManagerTitle": {
+    "message": "内容管理",
+    "description": "内容管理部分的标题"
+  },
+  "sidepanelNoTabsMessage": {
+    "message": "你还没有新建同步任务",
+    "description": "当没有同步任务时显示的消息"
+  },
+  "sidepanelCreateNewTabButton": {
+    "message": "新建同步任务",
+    "description": "创建新同步任务按钮的文本"
+  },
+  "selectCollectionLabel": {
+    "message": "选择收藏夹",
+    "description": "收藏夹选择下拉框的标签"
+  },
+  "selectCollectionPlaceholder": {
+    "message": "选择一个收藏夹",
+    "description": "收藏夹选择下拉框的占位符"
+  },
+  "addCollectionButtonLabel": {
+    "message": "添加新收藏夹",
+    "description": "添加收藏夹按钮的无障碍标签"
+  },
+  "addNewCollectionTitle": {
+    "message": "添加新收藏夹",
+    "description": "添加新收藏夹模态框的标题"
+  },
+  "collectionNameLabel": {
+    "message": "收藏夹名称",
+    "description": "收藏夹名称输入框的标签"
+  },
+  "collectionNamePlaceholder": {
+    "message": "输入收藏夹名称",
+    "description": "收藏夹名称输入框的占位"
+  },
+  "cancelButton": {
+    "message": "取消",
+    "description": "取消按钮的文本"
+  },
+  "addButton": {
+    "message": "添加",
+    "description": "添加按钮的文本"
+  },
+  "defaultCollectionTitle": {
+    "message": "默认收藏夹",
+    "description": "默认收藏夹的标题"
+  },
+  "workCollectionTitle": {
+    "message": "工作笔记",
+    "description": "工作收藏夹的标题"
+  },
+  "sidepanelCollectionSelectLabel": {
+    "message": "选择收藏夹",
+    "description": "收藏夹选择下拉框的标签"
+  },
+  "sidepanelCollectionSelectPlaceholder": {
+    "message": "选择一个收藏夹",
+    "description": "收藏夹选择下拉框的占位符"
+  },
+  "sidepanelCollectionAddButtonLabel": {
+    "message": "添加新收藏夹",
+    "description": "添加收藏夹按钮的无障碍标签"
+  },
+  "sidepanelCollectionAddNewTitle": {
+    "message": "添加新收藏夹",
+    "description": "添加新收藏夹模态框的标题"
+  },
+  "sidepanelCollectionNameLabel": {
+    "message": "收藏夹名称",
+    "description": "收藏夹名称输入框的标签"
+  },
+  "sidepanelCollectionNamePlaceholder": {
+    "message": "输入收藏夹名称",
+    "description": "收藏夹名称输入框的占位符"
+  },
+  "sidepanelCollectionCancelButton": {
+    "message": "取消",
+    "description": "取消按钮的文本"
+  },
+  "sidepanelCollectionAddButton": {
+    "message": "添加",
+    "description": "添加按钮的文本"
+  },
+  "sidepanelCollectionDefaultTitle": {
+    "message": "默认收藏夹",
+    "description": "默认收藏夹的标题"
+  },
+  "sidepanelCollectionWorkTitle": {
+    "message": "工作笔记",
+    "description": "工作收藏夹的标题"
+  },
+  "sidepanelCollectionEmpty": {
+    "message": "新建收藏夹以继续 ----->"
+  },
+  "sidepanelCollectionItemsTitle": {
+    "message": "收藏项目",
+    "description": "收藏项目列表的标题"
+  },
+  "sidepanelCollectionItemDeleteButton": {
+    "message": "删除项目",
+    "description": "删除项目按钮的无障碍标签"
+  },
+  "sidepanelCollectionItemsEmpty": {
+    "message": "该收藏夹暂无项目",
+    "description": "收藏夹为空时显示的消息"
+  },
+  "dashboardSendBiliPrivateMsg": {
+    "message": "发送 B 站私信"
+  },
+  "platformSSPai": {
+    "message": "少数派",
+    "description": "少数派平台名称"
+  },
+  "platform51CTO": {
+    "message": "51CTO",
+    "description": "51CTO 平台名称"
+  },
+  "platformEastmoney": {
+    "message": "东方财富",
+    "description": "东方财富平台名称"
+  },
+  "platformCSDN": {
+    "message": "CSDN",
+    "description": "CSDN 平台名称"
+  },
+  "platformJuejin": {
+    "message": "掘金",
+    "description": "掘金平台名称"
+  },
+  "platformJianshu": {
+    "message": "简书",
+    "description": "简书平台名称"
+  },
+  "platformX": {
+    "message": "X",
+    "description": "X (Twitter) 平台名称"
+  },
+  "platformSegmentfault": {
+    "message": "思否",
+    "description": "思否平台名称"
+  },
+  "platformBilibili": {
+    "message": "哔哩哔哩",
+    "description": "哔哩哔哩平台名称"
+  },
+  "platformRednote": {
+    "message": "小红书",
+    "description": "小红书平台名称"
+  },
+  "platformDedao": {
+    "message": "得到",
+    "description": "得到平台名称"
+  },
+  "platformWeixin": {
+    "message": "微信公众号",
+    "description": "微信公众号平台名称"
+  },
+  "platformDouban": {
+    "message": "豆瓣",
+    "description": "豆瓣平台名称"
+  },
+  "platformWeibo": {
+    "message": "微博",
+    "description": "微博平台名称"
+  },
+  "platformXueqiu": {
+    "message": "雪球",
+    "description": "雪球平台名称"
+  },
+  "platformZhihu": {
+    "message": "知乎",
+    "description": "知乎平台名称"
+  },
+  "platformDouyin": {
+    "message": "抖音",
+    "description": "抖音平台名称"
+  },
+  "platformOkjike": {
+    "message": "即刻",
+    "description": "即刻平台名称"
+  },
+  "platformInstagram": {
+    "message": "Instagram",
+    "description": "Instagram 平台名称"
+  },
+  "platformYoutube": {
+    "message": "YouTube",
+    "description": "YouTube 平台名称"
+  },
+  "platformTiktok": {
+    "message": "Tiktok",
+    "description": "Tiktok 平台名称"
+  },
+  "platformFacebook": {
+    "message": "脸书",
+    "description": "Facebook 平台名称"
+  },
+  "platformLinkedin": {
+    "message": "领英",
+    "description": "LinkedIn 平台名称"
+  },
+  "platformReddit": {
+    "message": "Reddit",
+    "description": "Reddit 平台名称"
+  },
+  "platformWeiXinVideo": {
+    "message": "微信视频号",
+    "description": "微信视频号平台名称"
+  },
+  "platformWebhook": {
+    "message": "Webhook",
+    "description": "Webhook 平台名称"
+  },
+  "platformXiaoheihe": {
+    "message": "小黑盒",
+    "description": "小黑盒平台名称"
+  },
+  "platformToutiaohao": {
+    "message": "今日头条号",
+    "description": "今日头条号平台名称"
+  },
+  "optionsFeedbackPrefix": {
+    "message": "没有你需要的平台？"
+  },
+  "optionsFeedbackEmail": {
+    "message": "发送邮件"
+  },
+  "optionsFeedback": {
+    "message": "提交反馈",
+    "description": "Button text for feedback form"
+  },
+  "optionsHelpPrefix": {
+    "message": "遇到使用问题？"
+  },
+  "optionsOrText": {
+    "message": "或者到"
+  },
+  "optionsClearAll": {
+    "message": "清空"
+  },
+  "optionsClearPlatforms": {
+    "message": "清空平台",
+    "description": "清空所有已选择平台的按钮文本"
+  },
+  "aboutDescription": {
+    "message": "MultiPost Extension 帮助您同时将内容发布到多个平台，提高内容分发效率。"
+  },
+  "gAbout": {
+    "message": "关于"
+  },
+  "gSettings": {
+    "message": "设置页"
+  },
+  "settingsTrustedDomains": {
+    "message": "可信域名"
+  },
+  "settingsTrustedDomainsDesc": {
+    "message": "添加可信任的域名，支持通配符（例如：*.multipost.app）"
+  },
+  "settingsAdd": {
+    "message": "添加"
+  },
+  "settingsDomainEmpty": {
+    "message": "域名不能为空"
+  },
+  "settingsDomainInvalid": {
+    "message": "无效的域名格式"
+  },
+  "settingsTrustedDomainsWarning": {
+    "message": "添加可信域名后，来自该域名的网页将被允许调用扩展进行内容发布操作。请谨慎添加可信域名，仅添加您信任的网站。"
+  },
+  "optionViewHomePagePublish": {
+    "message": "去网页发布",
+    "description": "Text for the publish button in header that links to homepage publish section"
+  },
+  "optionsCoverImage": {
+    "message": "封面图片"
+  },
+  "optionsUploadCover": {
+    "message": "上传封面"
+  },
+  "processingImages": {
+    "message": "正在处理图片...",
+    "description": "Status message when processing images"
+  },
+  "processingVideos": {
+    "message": "正在处理视频...",
+    "description": "Status message when processing videos"
+  },
+  "processingFiles": {
+    "message": "正在处理文件...",
+    "description": "Status message when processing files"
+  },
+  "errorEnterTitle": {
+    "message": "请输入标题"
+  },
+  "errorSelectPlatform": {
+    "message": "至少选择一个平台"
+  },
+  "errorEnterUrl": {
+    "message": "请输入有效的URL"
+  },
+  "optionsMarkdownEditor": {
+    "message": "Markdown 编辑器"
+  },
+  "optionsEnterMarkdown": {
+    "message": "输入 Markdown 内容..."
+  },
+  "platformKuaishou": {
+    "message": "快手",
+    "description": "快手平台名称"
+  },
+  "platformBaijiahao": {
+    "message": "百家号",
+    "description": "百家号平台名称"
+  },
+  "platformQiE": {
+    "message": "企鹅号",
+    "description": "企鹅号平台名称"
+  },
+  "platformChejiahao": {
+    "message": "车家号",
+    "description": "车家号平台名称"
+  },
+  "platformDewu": {
+    "message": "得物",
+    "description": "得物平台名称"
+  },
+  "platformYiche": {
+    "message": "易车",
+    "description": "易车平台名称"
+  },
+  "platformSohu": {
+    "message": "搜狐号",
+    "description": "搜狐号平台名称"
+  },
+  "platformNetease": {
+    "message": "网易号",
+    "description": "网易号平台名称"
+  },
+  "platformDayu": {
+    "message": "大鱼号",
+    "description": "大鱼号平台名称"
+  },
+  "platformAlipay": {
+    "message": "支付宝",
+    "description": "支付宝平台名称"
+  },
+  "platformYidian": {
+    "message": "一点号",
+    "description": "一点号平台名称"
+  },
+  "platformPinduoduo": {
+    "message": "拼多多",
+    "description": "拼多多平台名称"
+  },
+  "platformVivoVideo": {
+    "message": "vivo视频",
+    "description": "vivo视频平台名称"
+  },
+  "platformToutiao": {
+    "message": "今日头条",
+    "description": "今日头条平台名称"
+  },
+  "optionsQQGroup": {
+    "message": "QQ交流群",
+    "description": "QQ group number"
+  },
+  "platformThreads": {
+    "message": "Threads",
+    "description": "Threads平台名称"
+  },
+  "optionsNoticeDynamicVideo": {
+    "message": "只有部分同时支持图片和视频的平台才能上传视频，其它平台仅发布图文"
+  },
+  "platformBluesky": {
+    "message": "BlueSky"
+  },
+  "platformV2ex": {
+    "message": "V2EX"
+  },
+  "platformZSXQ": {
+    "message": "知识星球"
+  },
+  "platformWordpress": {
+    "message": "WordPress"
+  },
+  "settingsTrustedDomainsOrigin": {
+    "message": "来源域名"
+  },
+  "settingsTrustedDomainsSafetyTip": {
+    "message": "安全提示"
+  },
+  "settingsTrustedDomainsConfirm": {
+    "message": "请确认你信任此域名。允许此域名将会："
+  },
+  "settingsTrustedDomainsAllowPublish": {
+    "message": "允许该网站通过扩展发布内容"
+  },
+  "settingsTrustedDomainsAllowAPI": {
+    "message": "允许该网站调用扩展开放的 API"
+  },
+  "settingsTrustedDomainsCancel": {
+    "message": "可以随时在扩展的设置页里取消授权："
+  },
+  "settingsTrustedDomainsOnlyAllow": {
+    "message": "仅允许来自"
+  },
+  "settingsTrustedDomainsConfirmText": {
+    "message": "我已阅读并理解上述内容，确认要允许此域名访问扩展功能"
+  },
+  "settingsTrustedDomainsReject": {
+    "message": "拒绝"
+  },
+  "settingsTrustedDomainsAllow": {
+    "message": "允许并信任"
+  },
+  "settingsTrustedDomainsAdded": {
+    "message": "已添加到信任域名列表"
+  },
+  "settingsTrustedDomainsRejected": {
+    "message": "已拒绝此域名请求"
+  },
+  "settingsTrustedDomainsError": {
+    "message": "处理请求时发生错误"
+  },
+  "popupLogoAlt": {
+    "message": "MultiPost 图标",
+    "description": "Logo 图片的替代文本"
+  },
+  "popupLoadingMessage": {
+    "message": "正在打开程序...",
+    "description": "加载提示信息"
+  },
+  "errorProcessingImages": {
+    "message": "处理图片时出错",
+    "description": "Error message when processing images"
+  },
+  "errorProcessingVideos": {
+    "message": "处理视频时出错",
+    "description": "Error message when processing videos"
+  },
+  "errorProcessingFiles": {
+    "message": "处理文件时出错",
+    "description": "Error message when processing files"
+  },
+  "errorProcessingCover": {
+    "message": "处理封面图片时出错",
+    "description": "Error message when processing cover image"
+  },
+  "errorImportingContent": {
+    "message": "导入内容时出错",
+    "description": "Error message when importing content"
+  },
+  "optionsQQGroupTitle": {
+    "message": "QQ 交流群",
+    "description": "Title for QQ group popover"
+  },
+  "optionsContactPrefix": {
+    "message": "如遇问题，或期望支持新平台，请联系我们",
+    "description": "Contact prefix text in footer"
+  },
+  "optionsCNPlatforms": {
+    "message": "中国平台",
+    "description": "中国平台选项卡标题"
+  },
+  "optionsInternationalPlatforms": {
+    "message": "国际平台",
+    "description": "国际平台选项卡标题"
+  },
+  "optionViewHomePageDashboard": {
+    "message": "控制台"
+  },
+  "optionsSelectPublishPlatforms": {
+    "message": "请选择发布平台"
+  },
+  "extraConfigOkjikeConfigureTopic": {
+    "message": "配置即刻圈子"
+  },
+  "extraConfigOkjikeSelectTopic": {
+    "message": "选择圈子"
+  },
+  "extraConfigOkjikeEnterTopicName": {
+    "message": "输入圈子名称"
+  },
+  "extraConfigOkjikeAdd": {
+    "message": "添加"
+  },
+  "extraConfigOkjikeCancel": {
+    "message": "取消"
+  },
+  "extraConfigOkjikeSaveConfig": {
+    "message": "保存配置"
+  },
+  "extraConfigWebhookConfigure": {
+    "message": "配置Webhook"
+  },
+  "extraConfigWebhookEnterUrl": {
+    "message": "输入Webhook URL"
+  },
+  "extraConfigWebhookTest": {
+    "message": "测试"
+  },
+  "extraConfigWebhookAdd": {
+    "message": "添加URL"
+  },
+  "extraConfigWebhookCancel": {
+    "message": "取消"
+  },
+  "extraConfigWebhookSaveConfig": {
+    "message": "保存配置"
+  },
+  "extraConfigWebhookSupportedPlatforms": {
+    "message": "目前仅支持飞书、企业微信、钉钉的自定义机器人 Webhook。点击链接查看对应平台的配置文档。"
+  },
+  "extraConfigWebhookFeishu": {
+    "message": "飞书"
+  },
+  "extraConfigWebhookWecom": {
+    "message": "企业微信"
+  },
+  "extraConfigWebhookDingtalk": {
+    "message": "钉钉"
+  },
+  "extraConfigWebhookTestSuccess": {
+    "message": "Webhook测试成功！"
+  },
+  "extraConfigWebhookTestFailed": {
+    "message": "Webhook测试失败: $1"
+  },
+  "extraConfigWebhookNetworkError": {
+    "message": "Webhook测试失败: 网络错误"
+  },
+  "extraConfigWebhookInvalidUrl": {
+    "message": "URL格式无效，请输入正确的URL地址"
+  },
+  "extraConfigWebhookUnsupportedPlatform": {
+    "message": "不支持的 Webhook 平台"
+  },
+  "extraConfigZsxqSelectGroups": {
+    "message": "选择星球"
+  },
+  "extraConfigZsxqConfigureGroups": {
+    "message": "配置知识星球"
+  },
+  "extraConfigZsxqLoading": {
+    "message": "加载星球列表中..."
+  },
+  "extraConfigZsxqCancel": {
+    "message": "取消"
+  },
+  "extraConfigZsxqSaveConfig": {
+    "message": "保存配置"
+  },
+  "extraConfigZsxqNoGroups": {
+    "message": "未找到任何星球，请确认是否已登录知识星球并刷新页面"
+  },
+  "extraConfigWordpressInvalidUrl": {
+    "message": "URL 格式无效，请检查输入"
+  },
+  "extraConfigWordpressConfigure": {
+    "message": "配置"
+  },
+  "extraConfigWordpressEnterUrl": {
+    "message": "https://myweb.com/wp-admin/post-new.php"
+  },
+  "extraConfigWordpressAdd": {
+    "message": "添加 URL"
+  },
+  "extraConfigWordpressCancel": {
+    "message": "取消"
+  },
+  "extraConfigWordpressSaveConfig": {
+    "message": "保存"
+  },
+  "linkExtensionTitle": {
+    "message": "连接扩展到 MultiPost.app",
+    "description": "连接扩展页面标题"
+  },
+  "linkExtensionReject": {
+    "message": "拒绝",
+    "description": "拒绝连接按钮文本"
+  },
+  "linkExtensionAllow": {
+    "message": "允许",
+    "description": "允许连接按钮文本"
+  },
+  "linkExtensionSuccess": {
+    "message": "已连接到 MultiPost.app",
+    "description": "连接成功提示"
+  },
+  "linkExtensionRejected": {
+    "message": "已拒绝连接",
+    "description": "拒绝连接提示"
+  },
+  "linkExtensionError": {
+    "message": "发生了一些错误，请稍后再试",
+    "description": "连接错误提示"
+  },
+  "linkExtensionProcessError": {
+    "message": "处理请求时发生错误",
+    "description": "处理请求错误提示"
+  },
+  "readMore": {
+    "message": "阅读更多",
+    "description": "阅读更多按钮文本"
+  },
+  "webAppModalTitle": {
+    "message": "使用网页版发布更多内容",
+    "description": "Title for web app publish modal"
+  },
+  "webAppModalDescription": {
+    "message": "在我们的网页版中，您可以享受更多高级功能和更流畅的发布体验。立即跳转到网页版发布页面，尝试更强大的多平台发布功能！",
+    "description": "Description text for web app modal"
+  },
+  "webAppModalLater": {
+    "message": "稍后再说",
+    "description": "Button text to dismiss the modal"
+  },
+  "webAppModalGo": {
+    "message": "前往网页版",
+    "description": "Button text to go to web app"
+  },
+  "optionsViewAutomation": {
+    "message": "自动化",
+    "description": "查看自动化文档按钮文本"
+  },
+  "articleEditorAlertTitle": {
+    "message": "全新的文章排版编辑器",
+    "description": "文章编辑器 alert 标题"
+  },
+  "articleEditorAlertDescription": {
+    "message": "编辑、排版、发布，尽在文章编辑器，支持公众号等文章平台",
+    "description": "文章编辑器 alert 描述"
+  },
+  "articleEditorAlertButton": {
+    "message": "去体验",
+    "description": "文章编辑器 alert 按钮文本"
+  },
+  "platformQQMusic": {
+    "message": "QQ音乐（TME）"
+  },
+  "platformLizhi": {
+    "message": "荔枝"
+  },
+  "refreshAccountsTitle": {
+    "message": "刷新账号",
+    "description": "刷新账号页面标题"
+  },
+  "refreshAccountsButton": {
+    "message": "刷新账号",
+    "description": "刷新账号按钮文本"
+  },
+  "refreshAccountsLoading": {
+    "message": "正在刷新账号信息...",
+    "description": "刷新账号加载状态文本"
+  },
+  "refreshAccountsError": {
+    "message": "刷新账号失败",
+    "description": "刷新账号错误状态文本"
+  },
+  "refreshAccountsNoAccounts": {
+    "message": "暂无账号信息",
+    "description": "无账号信息时显示的文本"
+  },
+  "refreshAccountsAutoClose": {
+    "message": "下次自动关闭",
+    "description": "自动关闭设置的开关文本"
+  },
+  "publishing": {
+    "message": "正在发布内容"
+  },
+  "publishingInProgress": {
+    "message": "正在发布..."
+  },
+  "processingContent": {
+    "message": "正在处理文章内容和图片..."
+  },
+  "processingComplete": {
+    "message": "处理完成，准备发布..."
+  },
+  "publishComplete": {
+    "message": "发布完成"
+  },
+  "errorMessages": {
+    "message": "错误信息"
+  },
+  "finishPublishing": {
+    "message": "完成发布"
+  },
+  "finishAndCloseTabs": {
+    "message": "完成并关闭所有标签页"
+  },
+  "errorGetSyncData": {
+    "message": "获取同步数据失败"
+  },
+  "errorProcessContent": {
+    "message": "处理内容时出错，请重试"
+  },
+  "errorProcessImage": {
+    "message": "处理图片失败: $1"
+  },
+  "errorProcessFile": {
+    "message": "处理文件失败: $1"
+  },
+  "errorReloadTab": {
+    "message": "重新加载标签页失败: $1"
+  },
+  "errorCloseTab": {
+    "message": "关闭标签页失败: $1"
+  },
+  "errorCloseAllTabs": {
+    "message": "关闭所有标签页失败: $1"
+  },
+  "contactUsIfProblem": {
+    "message": "如果遇到任何问题，请"
+  },
+  "publishAutoClose": {
+    "message": "自动关闭",
+    "description": "发布页面自动关闭开关文本"
+  },
+  "publishAutoCloseCountdown": {
+    "message": "$1 秒后自动关闭",
+    "description": "发布页面自动关闭倒计时文本"
+  }
+}
