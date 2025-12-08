@@ -32,6 +32,11 @@ export interface CustomPrompts {
 }
 
 /**
+ * 图片尺寸选项
+ */
+export type ImageSize = '1024x576' | '1024x1024' | '768x1024' | '576x1024';
+
+/**
  * AI 配置
  */
 export interface AIConfig {
@@ -43,6 +48,10 @@ export interface AIConfig {
   siliconflowModel: SiliconFlowModel;
   /** 自定义提示词 */
   customPrompts: CustomPrompts;
+  /** 图片生成模型 */
+  imageModel: SiliconFlowImageModel;
+  /** 图片尺寸 */
+  imageSize: ImageSize;
 }
 
 /**
@@ -121,6 +130,8 @@ export const DEFAULT_AI_CONFIG: AIConfig = {
   siliconflowApiKey: '',
   siliconflowModel: 'Qwen/Qwen2.5-7B-Instruct',
   customPrompts: DEFAULT_PROMPTS,
+  imageModel: 'Kwai-Kolors/Kolors',
+  imageSize: '1024x576',
 };
 
 /**
@@ -135,3 +146,52 @@ export const SILICONFLOW_MODEL_OPTIONS: { key: SiliconFlowModel; label: string }
   { key: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B', label: 'DeepSeek-R1-7B（免费）' },
   { key: 'THUDM/glm-4-9b-chat', label: 'GLM-4-9B（免费）' },
 ];
+
+/**
+ * SiliconFlow 图片生成模型
+ */
+export type SiliconFlowImageModel =
+  | 'Kwai-Kolors/Kolors'
+  | 'black-forest-labs/FLUX.1-schnell'
+  | 'stabilityai/stable-diffusion-3-5-large';
+
+/**
+ * SiliconFlow 图片生成模型选项
+ */
+export const SILICONFLOW_IMAGE_MODEL_OPTIONS: { key: SiliconFlowImageModel; label: string }[] = [
+  { key: 'Kwai-Kolors/Kolors', label: 'Kolors（免费，推荐）' },
+  { key: 'black-forest-labs/FLUX.1-schnell', label: 'FLUX.1-schnell（免费）' },
+  { key: 'stabilityai/stable-diffusion-3-5-large', label: 'SD 3.5 Large' },
+];
+
+/**
+ * 图片尺寸选项
+ */
+export const IMAGE_SIZE_OPTIONS: { key: ImageSize; label: string }[] = [
+  { key: '1024x576', label: '1024×576（16:9 横版）' },
+  { key: '1024x1024', label: '1024×1024（1:1 方形）' },
+  { key: '768x1024', label: '768×1024（3:4 竖版）' },
+  { key: '576x1024', label: '576×1024（9:16 竖版）' },
+];
+
+/**
+ * SiliconFlow 图片生成请求
+ */
+export interface SiliconFlowImageRequest {
+  model: SiliconFlowImageModel;
+  prompt: string;
+  negative_prompt?: string;
+  image_size?: string;
+  batch_size?: number;
+  num_inference_steps?: number;
+  guidance_scale?: number;
+}
+
+/**
+ * SiliconFlow 图片生成响应
+ */
+export interface SiliconFlowImageResponse {
+  images: {
+    url: string;
+  }[];
+}

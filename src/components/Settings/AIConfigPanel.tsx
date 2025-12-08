@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, CardHeader, CardBody, Input, Select, SelectItem, Switch, Button, Chip } from '@heroui/react';
-import { KeyIcon, CheckCircleIcon, AlertCircleIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
-import type { AIConfig, SiliconFlowModel } from '~types/ai';
-import { DEFAULT_AI_CONFIG, SILICONFLOW_MODEL_OPTIONS } from '~types/ai';
+import { Card, CardHeader, CardBody, Input, Select, SelectItem, Switch, Button, Chip, Divider } from '@heroui/react';
+import { KeyIcon, CheckCircleIcon, AlertCircleIcon, EyeIcon, EyeOffIcon, ImageIcon } from 'lucide-react';
+import type { AIConfig, SiliconFlowModel, SiliconFlowImageModel, ImageSize } from '~types/ai';
+import {
+  DEFAULT_AI_CONFIG,
+  SILICONFLOW_MODEL_OPTIONS,
+  SILICONFLOW_IMAGE_MODEL_OPTIONS,
+  IMAGE_SIZE_OPTIONS,
+} from '~types/ai';
 import { getAIConfig, saveAIConfig } from '~services/aiConfig';
 
 /**
@@ -151,6 +156,48 @@ const AIConfigPanel: React.FC = () => {
             <SelectItem key={option.key}>{option.label}</SelectItem>
           ))}
         </Select>
+
+        <Divider className="my-2" />
+
+        {/* 图片生成配置 */}
+        <div className="flex items-center gap-2">
+          <ImageIcon className="size-4 text-primary" />
+          <h4 className="text-sm font-medium">封面图生成</h4>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <Select
+            label="图片模型"
+            placeholder="选择模型"
+            selectedKeys={[config.imageModel || 'Kwai-Kolors/Kolors']}
+            onSelectionChange={(keys) => {
+              const selected = Array.from(keys)[0] as SiliconFlowImageModel;
+              if (selected) updateConfig('imageModel', selected);
+            }}
+            variant="bordered"
+            isDisabled={!isEnabled}
+            size="sm">
+            {SILICONFLOW_IMAGE_MODEL_OPTIONS.map((option) => (
+              <SelectItem key={option.key}>{option.label}</SelectItem>
+            ))}
+          </Select>
+
+          <Select
+            label="图片尺寸"
+            placeholder="选择尺寸"
+            selectedKeys={[config.imageSize || '1024x576']}
+            onSelectionChange={(keys) => {
+              const selected = Array.from(keys)[0] as ImageSize;
+              if (selected) updateConfig('imageSize', selected);
+            }}
+            variant="bordered"
+            isDisabled={!isEnabled}
+            size="sm">
+            {IMAGE_SIZE_OPTIONS.map((option) => (
+              <SelectItem key={option.key}>{option.label}</SelectItem>
+            ))}
+          </Select>
+        </div>
 
         {/* 保存按钮 */}
         <div className="flex items-center justify-end gap-2 pt-2">

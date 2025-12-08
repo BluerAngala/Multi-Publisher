@@ -12,11 +12,19 @@ import {
   Chip,
   useDisclosure,
 } from '@heroui/react';
-import { XIcon, FileImageIcon, FileVideo2Icon, SparklesIcon, TrashIcon, SettingsIcon } from 'lucide-react';
+import {
+  XIcon,
+  FileImageIcon,
+  FileVideo2Icon,
+  SparklesIcon,
+  TrashIcon,
+  SettingsIcon,
+  ImagePlusIcon,
+} from 'lucide-react';
 import type { NewsItem, PublishType } from '~types/news';
 import type { EditorContent, FileData } from '~types/editor';
 import { createEmptyEditorContent } from '~types/editor';
-import { generateContent } from '~services/ai';
+import { generateContent, generateCoverImage, fetchCoverFromUrl } from '~services/ai';
 import { PUBLISH_TYPE_CONFIGS } from '~types/news';
 import PromptConfigModal from './PromptConfigModal';
 
@@ -45,11 +53,13 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
 }) => {
   const [content, setContent] = useState<EditorContent>(initialContent || createEmptyEditorContent());
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isGeneratingCover, setIsGeneratingCover] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
   const { isOpen: isPromptModalOpen, onOpen: onPromptModalOpen, onClose: onPromptModalClose } = useDisclosure();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
 
   const publishTypeLabel = PUBLISH_TYPE_CONFIGS.find((c) => c.key === publishType)?.label || publishType;
 
@@ -120,6 +130,52 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
     }));
   }, []);
 
+  // 处理封面图上传
+  const handleCoverChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file || !file.type.startsWith('image/')) return;
+
+      setContent((prev) => ({
+        ...prev,
+        coverImage: handleFileProcess(file),
+      }));
+    },
+    [handleFileProcess],
+  );
+
+  // 删除封面图
+  const handleDeleteCover = useCallback(() => {
+    setContent((prev) => ({
+      ...prev,
+      coverImage: null,
+    }));
+  }, []);
+
+  // AI 生成封面图
+  const handleGenerateCover = useCallback(async () => {
+    if (!content.title) {
+      setAiError('请先输入标题');
+      return;
+    }
+
+    setIsGeneratingCover(true);
+    setAiError(null);
+
+    try {
+      const coverImage = await generateCoverImage(content.title, content.digest);
+      setContent((prev) => ({
+        ...prev,
+        coverImage,
+      }));
+    } catch (error) {
+      console.error('生成封面图失败:', error);
+      setAiError(error instanceof Error ? error.message : '生成封面图失败');
+    } finally {
+      setIsGeneratingCover(false);
+    }
+  }, [content.title, content.digest]);
+
   // AI 生成内容
   const handleAIGenerate = useCallback(async () => {
     if (!selectedNews) return;
@@ -133,11 +189,22 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
         publishType,
       });
 
+      // 尝试从资讯获取封面图
+      let coverImage: FileData | null = null;
+      if (selectedNews.coverImage) {
+        try {
+          coverImage = await fetchCoverFromUrl(selectedNews.coverImage);
+        } catch (error) {
+          console.warn('获取资讯封面图失败:', error);
+        }
+      }
+
       setContent((prev) => ({
         ...prev,
         title: response.title,
         content: response.content,
         digest: response.digest,
+        coverImage: coverImage || prev.coverImage,
       }));
     } catch (error) {
       console.error('AI 生成失败:', error);
@@ -255,6 +322,61 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
               variant="underlined"
               minRows={publishType === 'video' ? 8 : 10}
             />
+
+            {/* 封面图 */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-default-600">封面图</span>
+                <div className="flex gap-1">
+                  <input
+                    type="file"
+                    ref={coverInputRef}
+                    accept="image/*"
+                    onChange={handleCoverChange}
+                    className="hidden"
+                  />
+                  <Button
+                    size="sm"
+                    variant="light"
+                    onPress={() => coverInputRef.current?.click()}
+                    isDisabled={isGeneratingCover}>
+                    上传
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="flat"
+                    color="secondary"
+                    startContent={isGeneratingCover ? null : <ImagePlusIcon className="size-3" />}
+                    onPress={handleGenerateCover}
+                    isLoading={isGeneratingCover}
+                    isDisabled={!content.title}>
+                    AI 生成
+                  </Button>
+                </div>
+              </div>
+              {content.coverImage ? (
+                <div className="relative group">
+                  <Image
+                    src={content.coverImage.url}
+                    alt={content.coverImage.name}
+                    className="object-cover w-full rounded-lg max-h-40"
+                  />
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    color="danger"
+                    variant="light"
+                    className="absolute z-10 transition-opacity opacity-0 top-1 right-1 group-hover:opacity-100"
+                    onPress={handleDeleteCover}>
+                    <XIcon className="size-3" />
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-24 border-2 border-dashed rounded-lg border-default-200 text-default-400">
+                  <span className="text-sm">暂无封面图</span>
+                </div>
+              )}
+            </div>
 
             {/* 图片列表 */}
             {content.images.length > 0 && (

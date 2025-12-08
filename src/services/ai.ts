@@ -1,8 +1,14 @@
-import type { AIGenerationRequest, AIGenerationResponse } from '~types/editor';
-import type { SiliconFlowRequest, SiliconFlowResponse } from '~types/ai';
+import type { AIGenerationRequest, AIGenerationResponse, FileData } from '~types/editor';
+import type {
+  SiliconFlowRequest,
+  SiliconFlowResponse,
+  SiliconFlowImageRequest,
+  SiliconFlowImageResponse,
+} from '~types/ai';
 import { getAIConfig } from './aiConfig';
 
 const SILICONFLOW_API_URL = 'https://api.siliconflow.cn/v1/chat/completions';
+const SILICONFLOW_IMAGE_API_URL = 'https://api.siliconflow.cn/v1/images/generations';
 
 /**
  * AI 内容生成服务
@@ -256,4 +262,143 @@ export function createAIService(): AIService {
     generateContent,
     isAvailable: isAIServiceAvailable,
   };
+}
+
+/**
+ * 生成图片提示词
+ */
+async function generateImagePrompt(title: string, digest: string): Promise<string> {
+  const config = await getAIConfig();
+
+  if (!config.siliconflowApiKey) {
+    throw new Error('请先配置 SiliconFlow API Key');
+  }
+
+  const systemPrompt = `你是一位专业的 AI 图片提示词生成专家。请根据给定的标题和摘要，生成一个适合作为文章封面图的英文图片提示词。
+
+要求：
+1. 提示词必须是英文
+2. 描述一个与内容主题相关的视觉场景
+3. 风格现代、专业、吸引眼球
+4. 不要包含文字、人脸
+5. 只返回提示词本身，不要有任何解释`;
+
+  const userPrompt = `标题：${title}
+摘要：${digest || '无'}
+
+请生成图片提示词：`;
+
+  const requestBody: SiliconFlowRequest = {
+    model: config.siliconflowModel,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ],
+    temperature: 0.7,
+    max_tokens: 256,
+    stream: false,
+  };
+
+  const response = await fetch(SILICONFLOW_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${config.siliconflowApiKey}`,
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    throw new Error(`生成提示词失败: ${response.status}`);
+  }
+
+  const data: SiliconFlowResponse = await response.json();
+  return (
+    data.choices[0]?.message?.content?.trim() ||
+    'modern abstract digital art, technology concept, blue gradient background'
+  );
+}
+
+/**
+ * 调用 SiliconFlow 生成图片
+ */
+async function generateImageFromPrompt(prompt: string): Promise<string> {
+  const config = await getAIConfig();
+
+  if (!config.siliconflowApiKey) {
+    throw new Error('请先配置 SiliconFlow API Key');
+  }
+
+  const requestBody: SiliconFlowImageRequest = {
+    model: config.imageModel || 'Kwai-Kolors/Kolors',
+    prompt: prompt,
+    image_size: config.imageSize || '1024x576',
+    batch_size: 1,
+    num_inference_steps: 20,
+  };
+
+  const response = await fetch(SILICONFLOW_IMAGE_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${config.siliconflowApiKey}`,
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('SiliconFlow 图片生成错误:', errorText);
+    throw new Error(`图片生成失败: ${response.status}`);
+  }
+
+  const data: SiliconFlowImageResponse = await response.json();
+
+  if (!data.images || data.images.length === 0) {
+    throw new Error('图片生成返回空结果');
+  }
+
+  return data.images[0].url;
+}
+
+/**
+ * 从 URL 获取图片并转换为 FileData
+ */
+async function urlToFileData(url: string, name: string): Promise<FileData> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const localUrl = URL.createObjectURL(blob);
+
+  return {
+    name,
+    type: blob.type || 'image/png',
+    size: blob.size,
+    url: localUrl,
+  };
+}
+
+/**
+ * 生成 AI 封面图
+ * 根据标题和摘要生成提示词，然后调用图片生成 API
+ */
+export async function generateCoverImage(title: string, digest: string): Promise<FileData> {
+  // 1. 生成图片提示词
+  const prompt = await generateImagePrompt(title, digest);
+  console.log('生成的图片提示词:', prompt);
+
+  // 2. 调用图片生成 API
+  const imageUrl = await generateImageFromPrompt(prompt);
+  console.log('生成的图片 URL:', imageUrl);
+
+  // 3. 转换为 FileData
+  const fileData = await urlToFileData(imageUrl, `ai-cover-${Date.now()}.png`);
+
+  return fileData;
+}
+
+/**
+ * 从资讯封面 URL 获取 FileData
+ */
+export async function fetchCoverFromUrl(url: string): Promise<FileData> {
+  return urlToFileData(url, `cover-${Date.now()}.jpg`);
 }

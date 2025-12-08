@@ -159,10 +159,22 @@ const PlatformPanel: React.FC<PlatformPanelProps> = ({
 
   // 处理发布
   const handlePublish = useCallback(async () => {
-    if (!content.title && !content.content) {
-      alert('请输入标题或内容');
+    // 校验标题
+    if (!content.title) {
+      alert('请输入标题');
       return;
     }
+    // 校验内容
+    if (!content.content) {
+      alert('请输入正文内容');
+      return;
+    }
+    // 校验封面图（文章类型必须）
+    if (publishType === 'article' && !content.coverImage) {
+      alert('请上传或生成封面图');
+      return;
+    }
+    // 校验平台
     if (selectedPlatforms.length === 0) {
       alert('请选择发布平台');
       return;
@@ -191,7 +203,11 @@ const PlatformPanel: React.FC<PlatformPanelProps> = ({
   const selectedIntlCount = selectedPlatforms.filter((p) => internationalPlatforms.some((ip) => ip.name === p)).length;
 
   // 发布按钮是否可用
-  const canPublish = (content.title || content.content) && selectedPlatforms.length > 0;
+  const canPublish =
+    content.title &&
+    content.content &&
+    selectedPlatforms.length > 0 &&
+    (publishType !== 'article' || content.coverImage);
 
   return (
     <Card className="h-full shadow-none bg-default-50">
