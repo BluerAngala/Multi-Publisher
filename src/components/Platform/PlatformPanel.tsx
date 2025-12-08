@@ -127,7 +127,7 @@ const PlatformPanel: React.FC<PlatformPanelProps> = ({
         data: {
           title: content.title,
           digest: content.digest,
-          cover: content.coverImage || { name: '', url: '' },
+          cover: content.coverImages[0] || { name: '', url: '' },
           htmlContent: content.content,
           markdownContent: content.content,
           images: content.images,
@@ -170,7 +170,7 @@ const PlatformPanel: React.FC<PlatformPanelProps> = ({
       return;
     }
     // 校验封面图（文章类型必须）
-    if (publishType === 'article' && !content.coverImage) {
+    if (publishType === 'article' && content.coverImages.length === 0) {
       alert('请上传或生成封面图');
       return;
     }
@@ -207,7 +207,7 @@ const PlatformPanel: React.FC<PlatformPanelProps> = ({
     content.title &&
     content.content &&
     selectedPlatforms.length > 0 &&
-    (publishType !== 'article' || content.coverImage);
+    (publishType !== 'article' || content.coverImages.length > 0);
 
   return (
     <Card className="h-full shadow-none bg-default-50">

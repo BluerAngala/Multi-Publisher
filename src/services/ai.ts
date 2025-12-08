@@ -320,9 +320,9 @@ async function generateImagePrompt(title: string, digest: string): Promise<strin
 }
 
 /**
- * 调用 SiliconFlow 生成图片
+ * 调用 SiliconFlow 生成图片（支持多张）
  */
-async function generateImageFromPrompt(prompt: string): Promise<string> {
+async function generateImagesFromPrompt(prompt: string): Promise<string[]> {
   const config = await getAIConfig();
 
   if (!config.siliconflowApiKey) {
@@ -333,7 +333,7 @@ async function generateImageFromPrompt(prompt: string): Promise<string> {
     model: config.imageModel || 'Kwai-Kolors/Kolors',
     prompt: prompt,
     image_size: config.imageSize || '1024x576',
-    batch_size: 1,
+    batch_size: config.imageBatchSize || 1,
     num_inference_steps: 20,
   };
 
@@ -358,7 +358,7 @@ async function generateImageFromPrompt(prompt: string): Promise<string> {
     throw new Error('图片生成返回空结果');
   }
 
-  return data.images[0].url;
+  return data.images.map((img) => img.url);
 }
 
 /**
@@ -378,22 +378,32 @@ async function urlToFileData(url: string, name: string): Promise<FileData> {
 }
 
 /**
- * 生成 AI 封面图
+ * 生成 AI 封面图（支持多张）
  * 根据标题和摘要生成提示词，然后调用图片生成 API
  */
-export async function generateCoverImage(title: string, digest: string): Promise<FileData> {
+export async function generateCoverImages(title: string, digest: string): Promise<FileData[]> {
   // 1. 生成图片提示词
   const prompt = await generateImagePrompt(title, digest);
   console.log('生成的图片提示词:', prompt);
 
   // 2. 调用图片生成 API
-  const imageUrl = await generateImageFromPrompt(prompt);
-  console.log('生成的图片 URL:', imageUrl);
+  const imageUrls = await generateImagesFromPrompt(prompt);
+  console.log('生成的图片 URLs:', imageUrls);
 
-  // 3. 转换为 FileData
-  const fileData = await urlToFileData(imageUrl, `ai-cover-${Date.now()}.png`);
+  // 3. 转换为 FileData 数组
+  const fileDataList = await Promise.all(
+    imageUrls.map((url, index) => urlToFileData(url, `ai-cover-${Date.now()}-${index}.png`)),
+  );
 
-  return fileData;
+  return fileDataList;
+}
+
+/**
+ * 生成单张 AI 封面图（兼容旧接口）
+ */
+export async function generateCoverImage(title: string, digest: string): Promise<FileData> {
+  const images = await generateCoverImages(title, digest);
+  return images[0];
 }
 
 /**

@@ -11,12 +11,15 @@ import {
   Spinner,
   Chip,
   useDisclosure,
+  Modal,
+  ModalContent,
+  ModalBody,
 } from '@heroui/react';
 import { XIcon, FileImageIcon, FileVideo2Icon, SparklesIcon, TrashIcon, ImagePlusIcon } from 'lucide-react';
 import type { NewsItem, PublishType } from '~types/news';
 import type { EditorContent, FileData } from '~types/editor';
 import { createEmptyEditorContent } from '~types/editor';
-import { generateContent, generateCoverImage, fetchCoverFromUrl } from '~services/ai';
+import { generateContent, generateCoverImages, fetchCoverFromUrl } from '~services/ai';
 import { getAIConfig } from '~services/aiConfig';
 import { PUBLISH_TYPE_CONFIGS } from '~types/news';
 import AIConfigModal from './AIConfigModal';
@@ -48,7 +51,9 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingCover, setIsGeneratingCover] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const { isOpen: isAIConfigOpen, onOpen: onAIConfigOpen, onClose: onAIConfigClose } = useDisclosure();
+  const { isOpen: isPreviewOpen, onOpen: onPreviewOpen, onClose: onPreviewClose } = useDisclosure();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -126,22 +131,26 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
   // 处理封面图上传
   const handleCoverChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      if (!file || !file.type.startsWith('image/')) return;
+      const files = event.target.files;
+      if (!files) return;
+
+      const newCovers = Array.from(files)
+        .filter((file) => file.type.startsWith('image/'))
+        .map(handleFileProcess);
 
       setContent((prev) => ({
         ...prev,
-        coverImage: handleFileProcess(file),
+        coverImages: [...prev.coverImages, ...newCovers],
       }));
     },
     [handleFileProcess],
   );
 
   // 删除封面图
-  const handleDeleteCover = useCallback(() => {
+  const handleDeleteCover = useCallback((index: number) => {
     setContent((prev) => ({
       ...prev,
-      coverImage: null,
+      coverImages: prev.coverImages.filter((_, i) => i !== index),
     }));
   }, []);
 
@@ -156,10 +165,10 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
     setAiError(null);
 
     try {
-      const coverImage = await generateCoverImage(content.title, content.digest);
+      const coverImages = await generateCoverImages(content.title, content.digest);
       setContent((prev) => ({
         ...prev,
-        coverImage,
+        coverImages: [...prev.coverImages, ...coverImages],
       }));
     } catch (error) {
       console.error('生成封面图失败:', error);
@@ -186,10 +195,11 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
       });
 
       // 尝试从资讯获取封面图
-      let coverImage: FileData | null = null;
+      const coverImages: FileData[] = [];
       if (selectedNews.coverImage) {
         try {
-          coverImage = await fetchCoverFromUrl(selectedNews.coverImage);
+          const coverImage = await fetchCoverFromUrl(selectedNews.coverImage);
+          coverImages.push(coverImage);
         } catch (error) {
           console.warn('获取资讯封面图失败:', error);
         }
@@ -200,17 +210,17 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
         title: response.title,
         content: response.content,
         digest: response.digest,
-        coverImage: coverImage || prev.coverImage,
+        coverImages: coverImages.length > 0 ? coverImages : prev.coverImages,
       }));
 
       // 如果开启了自动生成配图，且没有从资讯获取到封面图，则自动生成
-      if (aiConfig.autoGenerateImage && aiConfig.provider === 'siliconflow' && !coverImage) {
+      if (aiConfig.autoGenerateImage && aiConfig.provider === 'siliconflow' && coverImages.length === 0) {
         setIsGeneratingCover(true);
         try {
-          const generatedCover = await generateCoverImage(response.title, response.digest);
+          const generatedCovers = await generateCoverImages(response.title, response.digest);
           setContent((prev) => ({
             ...prev,
-            coverImage: generatedCover,
+            coverImages: generatedCovers,
           }));
         } catch (error) {
           console.warn('自动生成配图失败:', error);
@@ -245,6 +255,15 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
       [field]: value,
     }));
   }, []);
+
+  // 预览图片
+  const handlePreviewImage = useCallback(
+    (url: string) => {
+      setPreviewImage(url);
+      onPreviewOpen();
+    },
+    [onPreviewOpen],
+  );
 
   return (
     <Card className="h-full shadow-none bg-default-50">
@@ -366,22 +385,29 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
                   </Button>
                 </div>
               </div>
-              {content.coverImage ? (
-                <div className="relative group">
-                  <Image
-                    src={content.coverImage.url}
-                    alt={content.coverImage.name}
-                    className="object-cover w-full rounded-lg max-h-40"
-                  />
-                  <Button
-                    isIconOnly
-                    size="sm"
-                    color="danger"
-                    variant="light"
-                    className="absolute z-10 transition-opacity opacity-0 top-1 right-1 group-hover:opacity-100"
-                    onPress={handleDeleteCover}>
-                    <XIcon className="size-3" />
-                  </Button>
+              {content.coverImages.length > 0 ? (
+                <div className="grid grid-cols-2 gap-2">
+                  {content.coverImages.map((img, index) => (
+                    <div
+                      key={index}
+                      className="relative group">
+                      <Image
+                        src={img.url}
+                        alt={img.name}
+                        className="object-cover w-full rounded-lg cursor-pointer aspect-video"
+                        onClick={() => handlePreviewImage(img.url)}
+                      />
+                      <Button
+                        isIconOnly
+                        size="sm"
+                        color="danger"
+                        variant="light"
+                        className="absolute z-10 transition-opacity opacity-0 top-1 right-1 group-hover:opacity-100"
+                        onPress={() => handleDeleteCover(index)}>
+                        <XIcon className="size-3" />
+                      </Button>
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-24 border-2 border-dashed rounded-lg border-default-200 text-default-400">
@@ -402,7 +428,8 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
                       alt={img.name}
                       width={100}
                       height={100}
-                      className="object-cover rounded-lg"
+                      className="object-cover rounded-lg cursor-pointer"
+                      onClick={() => handlePreviewImage(img.url)}
                     />
                     <Button
                       isIconOnly
@@ -497,6 +524,27 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
         onClose={onAIConfigClose}
         currentType={publishType}
       />
+
+      {/* 图片预览弹窗 */}
+      <Modal
+        isOpen={isPreviewOpen}
+        onClose={onPreviewClose}
+        size="4xl"
+        hideCloseButton>
+        <ModalContent className="bg-transparent shadow-none">
+          <ModalBody
+            className="p-0 cursor-pointer"
+            onClick={onPreviewClose}>
+            {previewImage && (
+              <Image
+                src={previewImage}
+                alt="预览图片"
+                className="object-contain w-full max-h-[80vh]"
+              />
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Card>
   );
 };

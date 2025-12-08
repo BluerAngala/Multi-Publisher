@@ -24,8 +24,8 @@ export interface EditorContent {
   content: string;
   /** 摘要 */
   digest: string;
-  /** 封面图 */
-  coverImage: FileData | null;
+  /** 封面图列表（支持多张） */
+  coverImages: FileData[];
   /** 图片列表 */
   images: FileData[];
   /** 视频列表 */
@@ -92,7 +92,7 @@ export function createEmptyEditorContent(): EditorContent {
     title: '',
     content: '',
     digest: '',
-    coverImage: null,
+    coverImages: [],
     images: [],
     videos: [],
   };

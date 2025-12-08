@@ -30,6 +30,11 @@ export interface CustomPrompts {
 export type ImageSize = '1024x576' | '1024x1024' | '768x1024' | '576x1024';
 
 /**
+ * 图片生成数量（1-4）
+ */
+export type ImageBatchSize = 1 | 2 | 3 | 4;
+
+/**
  * AI 配置
  */
 export interface AIConfig {
@@ -47,6 +52,8 @@ export interface AIConfig {
   imageSize: ImageSize;
   /** 是否自动生成配图 */
   autoGenerateImage: boolean;
+  /** 图片生成数量 */
+  imageBatchSize: ImageBatchSize;
 }
 
 /**
@@ -128,7 +135,18 @@ export const DEFAULT_AI_CONFIG: AIConfig = {
   imageModel: 'Kwai-Kolors/Kolors',
   imageSize: '1024x576',
   autoGenerateImage: false,
+  imageBatchSize: 1,
 };
+
+/**
+ * 图片生成数量选项
+ */
+export const IMAGE_BATCH_SIZE_OPTIONS: { key: ImageBatchSize; label: string }[] = [
+  { key: 1, label: '1 张' },
+  { key: 2, label: '2 张' },
+  { key: 3, label: '3 张' },
+  { key: 4, label: '4 张' },
+];
 
 /**
  * SiliconFlow 图片生成模型（动态获取，支持自定义）

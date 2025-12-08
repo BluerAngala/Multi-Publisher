@@ -28,9 +28,9 @@ import {
   SettingsIcon,
   ExternalLinkIcon,
 } from 'lucide-react';
-import type { AIConfig, CustomPrompts, ImageSize } from '~types/ai';
+import type { AIConfig, CustomPrompts, ImageSize, ImageBatchSize } from '~types/ai';
 import type { PublishType } from '~types/news';
-import { DEFAULT_AI_CONFIG, DEFAULT_PROMPTS, IMAGE_SIZE_OPTIONS } from '~types/ai';
+import { DEFAULT_AI_CONFIG, DEFAULT_PROMPTS, IMAGE_SIZE_OPTIONS, IMAGE_BATCH_SIZE_OPTIONS } from '~types/ai';
 import { getAIConfig, saveAIConfig } from '~services/aiConfig';
 import ModelSelect from './ModelSelect';
 
@@ -76,7 +76,7 @@ const AIConfigModal: React.FC<AIConfigModalProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   // 更新配置字段
-  const updateConfig = useCallback((field: keyof AIConfig, value: string | boolean) => {
+  const updateConfig = useCallback((field: keyof AIConfig, value: string | boolean | number) => {
     setConfig((prev) => ({ ...prev, [field]: value }));
   }, []);
 
@@ -372,6 +372,20 @@ const AIConfigModal: React.FC<AIConfigModalProps> = ({ isOpen, onClose }) => {
                     description="选择生成图片的尺寸">
                     {IMAGE_SIZE_OPTIONS.map((option) => (
                       <SelectItem key={option.key}>{option.label}</SelectItem>
+                    ))}
+                  </Select>
+                  <Select
+                    label="生成数量"
+                    selectedKeys={[String(config.imageBatchSize || 1)]}
+                    onSelectionChange={(keys) => {
+                      const selected = Number(Array.from(keys)[0]) as ImageBatchSize;
+                      if (selected) updateConfig('imageBatchSize', selected);
+                    }}
+                    variant="bordered"
+                    isDisabled={!isEnabled}
+                    description="每次生成的图片数量">
+                    {IMAGE_BATCH_SIZE_OPTIONS.map((option) => (
+                      <SelectItem key={String(option.key)}>{option.label}</SelectItem>
                     ))}
                   </Select>
                 </div>
