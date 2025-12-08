@@ -1,21 +1,8 @@
-import {
-  Button,
-  Image,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Switch,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  useDisclosure,
-} from '@heroui/react';
-import { BookOpenText, BotIcon, SendIcon, LayoutGridIcon, LayoutListIcon, SettingsIcon } from 'lucide-react';
+import { Button, Image, Popover, PopoverContent, PopoverTrigger, Switch } from '@heroui/react';
+import { BookOpenText, BotIcon, SendIcon, LayoutGridIcon, LayoutListIcon } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import React from 'react';
 import { DOC_URLS, URLS } from '~config/urls';
-import AIConfigPanel from './Settings/AIConfigPanel';
 
 export type LayoutMode = 'three-column' | 'tabs';
 
@@ -27,8 +14,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ layoutMode, onLayoutModeChange }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <header className="bg-white shadow-sm">
       <div className="flex justify-between items-center px-4 py-2">
@@ -57,15 +42,6 @@ const Header: React.FC<HeaderProps> = ({ layoutMode, onLayoutModeChange }) => {
               <span className="text-sm">{layoutMode === 'three-column' ? 'AI 创作' : '经典模式'}</span>
             </Switch>
           )}
-          {/* 设置按钮 */}
-          <Button
-            size="sm"
-            variant="flat"
-            isIconOnly
-            onPress={onOpen}
-            title="设置">
-            <SettingsIcon className="size-4" />
-          </Button>
           {/* 去网页发布 */}
           <Button
             size="sm"
@@ -172,19 +148,6 @@ const Header: React.FC<HeaderProps> = ({ layoutMode, onLayoutModeChange }) => {
           </Popover>
         </div>
       </div>
-
-      {/* 设置弹窗 */}
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        size="md">
-        <ModalContent>
-          <ModalHeader>设置</ModalHeader>
-          <ModalBody className="pb-6">
-            <AIConfigPanel />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </header>
   );
 };

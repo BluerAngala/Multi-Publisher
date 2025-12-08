@@ -12,21 +12,14 @@ import {
   Chip,
   useDisclosure,
 } from '@heroui/react';
-import {
-  XIcon,
-  FileImageIcon,
-  FileVideo2Icon,
-  SparklesIcon,
-  TrashIcon,
-  SettingsIcon,
-  ImagePlusIcon,
-} from 'lucide-react';
+import { XIcon, FileImageIcon, FileVideo2Icon, SparklesIcon, TrashIcon, ImagePlusIcon } from 'lucide-react';
 import type { NewsItem, PublishType } from '~types/news';
 import type { EditorContent, FileData } from '~types/editor';
 import { createEmptyEditorContent } from '~types/editor';
 import { generateContent, generateCoverImage, fetchCoverFromUrl } from '~services/ai';
+import { getAIConfig } from '~services/aiConfig';
 import { PUBLISH_TYPE_CONFIGS } from '~types/news';
-import PromptConfigModal from './PromptConfigModal';
+import AIConfigModal from './AIConfigModal';
 
 interface AIEditorPanelProps {
   /** 选中的资讯 */
@@ -55,7 +48,7 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingCover, setIsGeneratingCover] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
-  const { isOpen: isPromptModalOpen, onOpen: onPromptModalOpen, onClose: onPromptModalClose } = useDisclosure();
+  const { isOpen: isAIConfigOpen, onOpen: onAIConfigOpen, onClose: onAIConfigClose } = useDisclosure();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -184,6 +177,9 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
     setAiError(null);
 
     try {
+      // 获取 AI 配置
+      const aiConfig = await getAIConfig();
+
       const response = await generateContent({
         newsItem: selectedNews,
         publishType,
@@ -206,6 +202,22 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
         digest: response.digest,
         coverImage: coverImage || prev.coverImage,
       }));
+
+      // 如果开启了自动生成配图，且没有从资讯获取到封面图，则自动生成
+      if (aiConfig.autoGenerateImage && aiConfig.provider === 'siliconflow' && !coverImage) {
+        setIsGeneratingCover(true);
+        try {
+          const generatedCover = await generateCoverImage(response.title, response.digest);
+          setContent((prev) => ({
+            ...prev,
+            coverImage: generatedCover,
+          }));
+        } catch (error) {
+          console.warn('自动生成配图失败:', error);
+        } finally {
+          setIsGeneratingCover(false);
+        }
+      }
     } catch (error) {
       console.error('AI 生成失败:', error);
       setAiError('AI 生成失败，请重试');
@@ -250,11 +262,11 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
           <div className="flex items-center gap-2">
             <Button
               size="sm"
-              variant="light"
-              isIconOnly
-              onPress={onPromptModalOpen}
-              title="提示词配置">
-              <SettingsIcon className="size-4" />
+              variant="flat"
+              startContent={<SparklesIcon className="size-4" />}
+              onPress={onAIConfigOpen}
+              title="AI 配置">
+              AI 配置
             </Button>
             {selectedNews && (
               <Button
@@ -479,10 +491,10 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
         </div>
       </CardFooter>
 
-      {/* 提示词配置弹窗 */}
-      <PromptConfigModal
-        isOpen={isPromptModalOpen}
-        onClose={onPromptModalClose}
+      {/* AI 配置弹窗 */}
+      <AIConfigModal
+        isOpen={isAIConfigOpen}
+        onClose={onAIConfigClose}
         currentType={publishType}
       />
     </Card>

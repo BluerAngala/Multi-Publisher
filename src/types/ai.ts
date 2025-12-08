@@ -8,16 +8,9 @@
 export type AIProvider = 'siliconflow' | 'mock';
 
 /**
- * SiliconFlow 可用模型
+ * SiliconFlow 模型（动态获取，支持自定义）
  */
-export type SiliconFlowModel =
-  | 'Qwen/Qwen2.5-7B-Instruct'
-  | 'Qwen/Qwen2.5-14B-Instruct'
-  | 'Qwen/Qwen2.5-32B-Instruct'
-  | 'deepseek-ai/DeepSeek-V3'
-  | 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B'
-  | 'THUDM/glm-4-9b-chat'
-  | 'Pro/Qwen/Qwen2.5-7B-Instruct';
+export type SiliconFlowModel = string;
 
 /**
  * 自定义提示词配置
@@ -52,6 +45,8 @@ export interface AIConfig {
   imageModel: SiliconFlowImageModel;
   /** 图片尺寸 */
   imageSize: ImageSize;
+  /** 是否自动生成配图 */
+  autoGenerateImage: boolean;
 }
 
 /**
@@ -132,37 +127,13 @@ export const DEFAULT_AI_CONFIG: AIConfig = {
   customPrompts: DEFAULT_PROMPTS,
   imageModel: 'Kwai-Kolors/Kolors',
   imageSize: '1024x576',
+  autoGenerateImage: false,
 };
 
 /**
- * SiliconFlow 模型选项
+ * SiliconFlow 图片生成模型（动态获取，支持自定义）
  */
-export const SILICONFLOW_MODEL_OPTIONS: { key: SiliconFlowModel; label: string }[] = [
-  { key: 'Qwen/Qwen2.5-7B-Instruct', label: 'Qwen2.5-7B（免费）' },
-  { key: 'Pro/Qwen/Qwen2.5-7B-Instruct', label: 'Qwen2.5-7B Pro' },
-  { key: 'Qwen/Qwen2.5-14B-Instruct', label: 'Qwen2.5-14B' },
-  { key: 'Qwen/Qwen2.5-32B-Instruct', label: 'Qwen2.5-32B' },
-  { key: 'deepseek-ai/DeepSeek-V3', label: 'DeepSeek-V3' },
-  { key: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B', label: 'DeepSeek-R1-7B（免费）' },
-  { key: 'THUDM/glm-4-9b-chat', label: 'GLM-4-9B（免费）' },
-];
-
-/**
- * SiliconFlow 图片生成模型
- */
-export type SiliconFlowImageModel =
-  | 'Kwai-Kolors/Kolors'
-  | 'black-forest-labs/FLUX.1-schnell'
-  | 'stabilityai/stable-diffusion-3-5-large';
-
-/**
- * SiliconFlow 图片生成模型选项
- */
-export const SILICONFLOW_IMAGE_MODEL_OPTIONS: { key: SiliconFlowImageModel; label: string }[] = [
-  { key: 'Kwai-Kolors/Kolors', label: 'Kolors（免费，推荐）' },
-  { key: 'black-forest-labs/FLUX.1-schnell', label: 'FLUX.1-schnell（免费）' },
-  { key: 'stabilityai/stable-diffusion-3-5-large', label: 'SD 3.5 Large' },
-];
+export type SiliconFlowImageModel = string;
 
 /**
  * 图片尺寸选项
@@ -178,7 +149,7 @@ export const IMAGE_SIZE_OPTIONS: { key: ImageSize; label: string }[] = [
  * SiliconFlow 图片生成请求
  */
 export interface SiliconFlowImageRequest {
-  model: SiliconFlowImageModel;
+  model: string;
   prompt: string;
   negative_prompt?: string;
   image_size?: string;
