@@ -1,6 +1,48 @@
 import type { NewsItem, NewsSource } from '~types/news';
 
 /**
+ * 法律资讯 API 响应类型
+ */
+interface LawNewsApiResponse {
+  code: number;
+  msg: string;
+  data: Array<{
+    id: string;
+    title: string;
+    focus_date: string;
+    url: string;
+    image: string;
+    brief: string;
+    keywords: string;
+  }>;
+}
+
+/**
+ * 获取法律资讯
+ */
+async function fetchLawNews(): Promise<NewsItem[]> {
+  const response = await fetch('https://env-00jxtnydr3fv.dev-hz.cloudbasefunction.cn/get_lawNews');
+  const result: LawNewsApiResponse = await response.json();
+
+  if (result.code !== 200) {
+    throw new Error(result.msg || '获取法律资讯失败');
+  }
+
+  return result.data.map((item) => ({
+    id: item.id,
+    title: item.title,
+    summary: item.brief,
+    author: '央视网',
+    source: 'law' as NewsSource,
+    publishTime: new Date(item.focus_date).toISOString(),
+    recommendScore: 85,
+    coverImage: item.image || undefined,
+    originalUrl: item.url,
+    tags: item.keywords ? item.keywords.split(' ').slice(0, 3) : ['法治', '新闻'],
+  }));
+}
+
+/**
  * Mock 资讯数据生成
  */
 const generateMockNews = (source: NewsSource, count: number = 10): NewsItem[] => {
@@ -9,6 +51,7 @@ const generateMockNews = (source: NewsSource, count: number = 10): NewsItem[] =>
     xiaohongshu: '小红书',
     zhihu: '知乎',
     douyin: '抖音',
+    law: '法律资讯',
   };
 
   const mockTitles: Record<NewsSource, string[]> = {
@@ -40,6 +83,7 @@ const generateMockNews = (source: NewsSource, count: number = 10): NewsItem[] =>
       '宠物日常｜太可爱了',
       '生活小妙招｜超实用',
     ],
+    law: ['最新法律法规解读', '民法典实施要点', '劳动法权益保护', '消费者维权指南', '知识产权保护'],
   };
 
   return Array.from({ length: count }, (_, index) => {
@@ -68,10 +112,13 @@ const generateMockNews = (source: NewsSource, count: number = 10): NewsItem[] =>
  * @returns 资讯列表
  */
 export async function fetchNewsList(source: NewsSource): Promise<NewsItem[]> {
-  // 模拟网络延迟
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // 法律资讯使用真实 API
+  if (source === 'law') {
+    return fetchLawNews();
+  }
 
-  // 返回 mock 数据
+  // 其他来源使用 mock 数据
+  await new Promise((resolve) => setTimeout(resolve, 500));
   return generateMockNews(source, 10);
 }
 

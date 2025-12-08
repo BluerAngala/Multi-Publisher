@@ -529,17 +529,24 @@ const AIEditorPanel: React.FC<AIEditorPanelProps> = ({
       <Modal
         isOpen={isPreviewOpen}
         onClose={onPreviewClose}
-        size="4xl"
-        hideCloseButton>
+        size="full"
+        hideCloseButton
+        classNames={{
+          wrapper: 'items-center justify-center',
+          base: 'bg-transparent shadow-none max-w-none m-0',
+          body: 'p-0',
+        }}
+        backdrop="blur">
         <ModalContent className="bg-transparent shadow-none">
           <ModalBody
-            className="p-0 cursor-pointer"
+            className="flex items-center justify-center p-0 cursor-pointer min-h-screen"
             onClick={onPreviewClose}>
             {previewImage && (
               <Image
                 src={previewImage}
                 alt="预览图片"
-                className="object-contain w-full max-h-[80vh]"
+                className="object-contain max-w-[90vw] max-h-[90vh]"
+                removeWrapper
               />
             )}
           </ModalBody>

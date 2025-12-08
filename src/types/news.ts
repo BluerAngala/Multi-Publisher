@@ -1,7 +1,7 @@
 /**
  * 资讯来源平台类型
  */
-export type NewsSource = 'weixin' | 'xiaohongshu' | 'zhihu' | 'douyin';
+export type NewsSource = 'weixin' | 'xiaohongshu' | 'zhihu' | 'douyin' | 'law';
 
 /**
  * 发布类型
@@ -54,6 +54,7 @@ export const NEWS_SOURCE_CONFIGS: NewsSourceConfig[] = [
   { key: 'xiaohongshu', label: '小红书爆文' },
   { key: 'zhihu', label: '知乎爆款' },
   { key: 'douyin', label: '抖音爆款' },
+  { key: 'law', label: '法律资讯' },
 ];
 
 /**
