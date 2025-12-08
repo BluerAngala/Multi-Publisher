@@ -1,10 +1,34 @@
-import { Button, Image, Popover, PopoverContent, PopoverTrigger } from '@heroui/react';
-import { BookOpenText, BotIcon, SendIcon } from 'lucide-react';
+import {
+  Button,
+  Image,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Switch,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  useDisclosure,
+} from '@heroui/react';
+import { BookOpenText, BotIcon, SendIcon, LayoutGridIcon, LayoutListIcon, SettingsIcon } from 'lucide-react';
 import { Icon } from '@iconify/react';
 import React from 'react';
 import { DOC_URLS, URLS } from '~config/urls';
+import AIConfigPanel from './Settings/AIConfigPanel';
 
-const Header: React.FC = () => {
+export type LayoutMode = 'three-column' | 'tabs';
+
+interface HeaderProps {
+  /** 布局模式 */
+  layoutMode?: LayoutMode;
+  /** 布局模式变更回调 */
+  onLayoutModeChange?: (mode: LayoutMode) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ layoutMode, onLayoutModeChange }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <header className="bg-white shadow-sm">
       <div className="flex justify-between items-center px-4 py-2">
@@ -22,6 +46,26 @@ const Header: React.FC = () => {
           </a>
         </div>
         <div className="flex gap-2 items-center">
+          {/* 布局模式切换 */}
+          {layoutMode && onLayoutModeChange && (
+            <Switch
+              isSelected={layoutMode === 'three-column'}
+              onValueChange={(checked) => onLayoutModeChange(checked ? 'three-column' : 'tabs')}
+              size="sm"
+              startContent={<LayoutGridIcon className="size-3" />}
+              endContent={<LayoutListIcon className="size-3" />}>
+              <span className="text-sm">{layoutMode === 'three-column' ? 'AI 创作' : '经典模式'}</span>
+            </Switch>
+          )}
+          {/* 设置按钮 */}
+          <Button
+            size="sm"
+            variant="flat"
+            isIconOnly
+            onPress={onOpen}
+            title="设置">
+            <SettingsIcon className="size-4" />
+          </Button>
           {/* 去网页发布 */}
           <Button
             size="sm"
@@ -128,6 +172,19 @@ const Header: React.FC = () => {
           </Popover>
         </div>
       </div>
+
+      {/* 设置弹窗 */}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size="md">
+        <ModalContent>
+          <ModalHeader>设置</ModalHeader>
+          <ModalBody className="pb-6">
+            <AIConfigPanel />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </header>
   );
 };

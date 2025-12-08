@@ -6,12 +6,13 @@ import React, { useState } from 'react';
 import { HeroUIProvider } from '@heroui/react';
 import { Tabs, Tab } from '@heroui/react';
 import cssText from 'data-text:~style.css';
-import Header from '~/components/Header';
+import Header, { type LayoutMode } from '~/components/Header';
 import DynamicTab from '~/components/Sync/DynamicTab';
 import VideoTab from '~/components/Sync/VideoTab';
 import { type SyncData, createTabsForPlatforms, injectScriptsToTabs } from '~sync/common';
 import ArticleTab from '~components/Sync/ArticleTab';
 import { refreshAllAccountInfo } from '~sync/account';
+import ThreeColumnLayout from '~components/Layout/ThreeColumnLayout';
 
 /**
  * Get the shadow container element for styling
@@ -45,6 +46,8 @@ export const getStyle = () => {
 const Options = () => {
   const [isReady, setIsReady] = useState(false);
   const [hashParams, setHashParams] = useState<Record<string, string>>({});
+  // 布局模式：'three-column' 三栏布局（新），'tabs' 标签页布局（旧）
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>('three-column');
 
   /**
    * Initialize the options page
@@ -154,42 +157,53 @@ const Options = () => {
   if (!isReady) {
     return null;
   }
+
   return (
     <HeroUIProvider>
-      <Header />
-      <main className="p-4 mx-auto w-full max-w-3xl md:max-w-screen-xl sm:max-w-7xl">
-        <Tabs
-          aria-label="sync publish"
-          defaultSelectedKey={hashParams.tab || 'dynamic'}
-          variant="underlined"
-          size="md"
-          color="primary"
-          classNames={{
-            base: 'flex justify-center',
-            tabList: 'gap-4',
-            tab: 'px-4 py-2 text-gray-500',
-            cursor: 'bg-primary',
-          }}>
-          <Tab
-            key="dynamic"
-            title={chrome.i18n.getMessage('gDynamic')}>
-            <DynamicTab funcPublish={funcPublish} />
-          </Tab>
-          <Tab
-            key="article"
-            title={chrome.i18n.getMessage('gArticle')}>
-            <ArticleTab
-              funcPublish={funcPublish}
-              funcScraper={funcScraper}
-            />
-          </Tab>
-          <Tab
-            key="video"
-            title={chrome.i18n.getMessage('gVideo')}>
-            <VideoTab funcPublish={funcPublish} />
-          </Tab>
-        </Tabs>
-      </main>
+      <Header
+        layoutMode={layoutMode}
+        onLayoutModeChange={setLayoutMode}
+      />
+
+      {layoutMode === 'three-column' ? (
+        // 三栏布局模式
+        <ThreeColumnLayout funcPublish={funcPublish} />
+      ) : (
+        // 经典标签页模式
+        <main className="p-4 mx-auto w-full max-w-3xl md:max-w-screen-xl sm:max-w-7xl">
+          <Tabs
+            aria-label="sync publish"
+            defaultSelectedKey={hashParams.tab || 'dynamic'}
+            variant="underlined"
+            size="md"
+            color="primary"
+            classNames={{
+              base: 'flex justify-center',
+              tabList: 'gap-4',
+              tab: 'px-4 py-2 text-gray-500',
+              cursor: 'bg-primary',
+            }}>
+            <Tab
+              key="dynamic"
+              title={chrome.i18n.getMessage('gDynamic')}>
+              <DynamicTab funcPublish={funcPublish} />
+            </Tab>
+            <Tab
+              key="article"
+              title={chrome.i18n.getMessage('gArticle')}>
+              <ArticleTab
+                funcPublish={funcPublish}
+                funcScraper={funcScraper}
+              />
+            </Tab>
+            <Tab
+              key="video"
+              title={chrome.i18n.getMessage('gVideo')}>
+              <VideoTab funcPublish={funcPublish} />
+            </Tab>
+          </Tabs>
+        </main>
+      )}
     </HeroUIProvider>
   );
 };
