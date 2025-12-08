@@ -17,7 +17,7 @@ interface NewsPanelProps {
  * 整合 NewsTabs、NewsList 组件，管理资讯选择状态
  */
 const NewsPanel: React.FC<NewsPanelProps> = ({ onNewsSelect, selectedNewsId }) => {
-  const [newsSource, setNewsSource] = useState<NewsSource>('weixin');
+  const [newsSource, setNewsSource] = useState<NewsSource>('law');
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
