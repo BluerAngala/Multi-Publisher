@@ -9,7 +9,7 @@ import cssText from 'data-text:~style.css';
 import Header, { type LayoutMode } from '~/components/Header';
 import DynamicTab from '~/components/Sync/DynamicTab';
 import VideoTab from '~/components/Sync/VideoTab';
-import { type SyncData, createTabsForPlatforms, injectScriptsToTabs } from '~sync/common';
+import type { SyncData } from '~sync/common';
 import ArticleTab from '~components/Sync/ArticleTab';
 import { refreshAllAccountInfo } from '~sync/account';
 import ThreeColumnLayout from '~components/Layout/ThreeColumnLayout';
@@ -74,33 +74,16 @@ const Options = () => {
 
   /**
    * Handle content publishing across multiple platforms
-   * @param {SyncData} data - The data to be published including content and target platforms
+   * Send message to background to open publish window
    */
   const funcPublish = async (data: SyncData) => {
     console.log('funcPublish', data);
     if (Array.isArray(data.platforms) && data.platforms.length > 0) {
-      createTabsForPlatforms(data)
-        .then(async (tabs) => {
-          injectScriptsToTabs(tabs, data);
-
-          // Notify tabs manager about new tabs
-          chrome.runtime.sendMessage({
-            type: 'MULTIPOST_EXTENSION_TABS_MANAGER_REQUEST_ADD_TABS',
-            data: data,
-            tabs: tabs,
-          });
-
-          // Activate tabs sequentially with delay
-          for (const { tab } of tabs) {
-            if (tab.id) {
-              await chrome.tabs.update(tab.id, { active: true });
-              await new Promise((resolve) => setTimeout(resolve, 2000));
-            }
-          }
-        })
-        .catch((error) => {
-          console.error('Error creating tabs or groups:', error);
-        });
+      // 发送消息给 background，由 background 打开新窗口处理发布
+      chrome.runtime.sendMessage({
+        action: 'MULTIPOST_EXTENSION_PUBLISH',
+        data: data,
+      });
     } else {
       console.error('No valid platforms specified');
     }

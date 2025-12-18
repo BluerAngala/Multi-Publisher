@@ -183,16 +183,13 @@ const PlatformPanel: React.FC<PlatformPanelProps> = ({
     setIsLoading(true);
     try {
       const data = getSyncData();
-      const window = await chrome.windows.getCurrent({ populate: true });
-      await chrome.sidePanel.open({ windowId: window.id });
       onPublish(data);
     } catch (error) {
       console.error('发布时出错:', error);
-      onPublish(getSyncData());
     } finally {
       setIsLoading(false);
     }
-  }, [content, selectedPlatforms, getSyncData, onPublish]);
+  }, [content, selectedPlatforms, getSyncData, onPublish, publishType]);
 
   // 按标签分组平台
   const cnPlatforms = platforms.filter((p) => p.tags?.includes('CN'));

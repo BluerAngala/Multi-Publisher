@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardBody, Button, Chip } from '@heroui/react';
-import { FileTextIcon, VideoIcon, MessageSquareIcon, StarIcon } from 'lucide-react';
+import { Card, CardBody, Button, Chip, Link } from '@heroui/react';
+import { FileTextIcon, VideoIcon, MessageSquareIcon, StarIcon, ExternalLinkIcon } from 'lucide-react';
 import type { NewsItem, PublishType } from '~types/news';
 import { PUBLISH_TYPE_CONFIGS, NEWS_SOURCE_CONFIGS } from '~types/news';
 
@@ -84,13 +84,28 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, isSelected, onSelect, onPubli
         {/* 摘要 - 显示完整内容 */}
         <p className="text-sm leading-loose text-default-600">{news.summary}</p>
 
-        {/* 作者、来源、时间 */}
+        {/* 作者、来源、时间、查看原文 */}
         <div className="flex flex-wrap items-center gap-3 pt-2 text-sm text-default-400">
           <span>{news.author}</span>
           <span>·</span>
           <span>{sourceLabel}</span>
           <span>·</span>
           <span>{formatPublishTime(news.publishTime)}</span>
+          {news.originalUrl && (
+            <>
+              <span>·</span>
+              <Link
+                href={news.originalUrl}
+                isExternal
+                showAnchorIcon
+                anchorIcon={<ExternalLinkIcon className="ml-1 size-3" />}
+                size="sm"
+                className="text-default-400 hover:text-primary"
+                onClick={(e) => e.stopPropagation()}>
+                查看原文
+              </Link>
+            </>
+          )}
         </div>
 
         {/* 发布类型按钮 - 仅在选中时显示，自适应宽度 */}

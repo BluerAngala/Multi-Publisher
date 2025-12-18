@@ -43,7 +43,6 @@ chrome.runtime.onInstalled.addListener((object) => {
     chrome.tabs.create({ url: URLS.onInstall });
   }
   initDefaultTrustedDomains();
-  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false });
 });
 
 // Listen Message || 监听消息 || START
